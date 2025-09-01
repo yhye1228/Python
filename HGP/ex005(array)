@@ -1,0 +1,50 @@
+value = 1 + 2
+str1 = "Hello" + 'World' # + 가 concat의 기능을 한다(연산자 오버로딩)
+str2 = "Hello".__add__("World") # 문자열을 합친다.
+print(str1)
+print(str2)
+str2.replace("World", "Bang")
+print(str2)
+print(str1*3)
+
+# str3 = "Hello" + 5  # 타입이 달라서 오류가 남
+print("Hello" *5)
+
+str4 = 'Hello'.__mul__(5)
+print(str4)
+print("="*50)
+print("-"*50)
+print("*"*50)
+
+#int arr[6] = {1,2,3,4,5,6}
+str5 = "안녕하세요"
+print(str5[0])  # 안
+print(str5[1])  # 녕
+print(str5[2])
+print(str5[3])
+print(str5[4]) # = print(str5[-1])
+print(str5[-5]) # 안
+print(str5[1:4]) # 1이상 4미만
+# for(i = 1; i < 4; i++)
+# {
+#     print(str5[i])
+# }
+print(str5[1:]) # 녕하세요(1~끝)
+print(str5[:3]) # 안녕하(0~2)
+print(str5[:])  # 전체 출력
+print(str5[-1])
+# print(str5[5])
+# print(str5[6])
+# print(str5[7])
+# print(str5[8])
+# print(str5[9])
+
+# const char * str = "Hello";
+# *(str + 0) = 'h';
+#=> 문자열 수정 안됨
+# char str[6] = {"Hello"};
+# str[0] = 'h';
+
+str1 = "Hello"
+print(len(str1))    # 5
+print("안녕하세요"[1]*2)
