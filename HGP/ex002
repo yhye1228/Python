@@ -1,0 +1,5 @@
+hex(10)
+print(hex(10))
+a = 0xff
+print(a)
+# import math
