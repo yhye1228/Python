@@ -1,0 +1,23 @@
+a:int = 10  # 정수
+b:float = 20.22 # 실수
+c:str = 'H' # 문자열
+d:str = "H" # 문자열
+# var c= 20
+# 실행 : shift + F10
+# print(a + b)
+print(type(b)) #a : argument(가변인자, 전달인자)
+
+a:int = 2020
+a:int = 2000
+# 포인터이기 때문에 타입만 같으면 사용가능하다.
+c = 10 + 30j # complex
+print(type(c))
+print(c.real)   # 실수만 출력(10)
+print(c.imag)   # 허수만 출력(30)
+print(10//3)    # 몫(정수) 구하기
+
+"""
+int a = 2020
+int a = 2000(C에서 사용X)
+
+"""
