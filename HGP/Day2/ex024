@@ -1,0 +1,84 @@
+#논리연산자
+#if 조건문
+# if True:
+#     print("정답입니다.")#4칸 들여쓰기!!!
+#     #변수 : 지역변수 아님
+# if False:
+#     print("출력안됨")
+
+# value = int(input("값을 입력해주세요 "))
+# if value > 0:
+#     print("양수입니다.")
+# if value < 0:
+#     print("음수입니다.")
+# if value == 0:
+#     print("0 입니다.")
+
+#날짜/시간 활용하기
+# import datetime
+# now_date = datetime.datetime.now()
+# print(now_date)
+# #2025-09-12 13:22:49.744187
+# print(type(now_date))
+# #<class 'datetime.datetime'>
+# print(now_date.year)
+# print(type(now_date.year))
+# #int
+# print(now_date.month)
+# #print(type(now_date.month))
+# print(now_date.day)
+# #print(type(now_date.day))
+# print(now_date.hour)
+# #print(type(now_date.hour))
+# print(now_date.minute)
+# #print(type(now_date.minute))
+# print(now_date.second)
+# print("*************************")
+# #print(type(now_date.second))
+# # print(now_date.microsecond)
+# #print(type(now_date.microsecond))
+# print("{}년 {}월 {}일 {}시 {}분 {}초".format(now_date.year, now_date.month, now_date.day, now_date.hour, now_date.minute, now_date.second))
+
+#167페이지
+# now = datetime.datetime.now()
+#
+# if 3 <= now.month <= 5:
+#     print("이번달은 {}월로 봄입니다.".format(now.month))
+# if 6<= now.month <= 8:
+#     print("이번달은 {}월로 여름입니다.".format(now.month))
+# if 9<= now.month <= 11:
+#     print("이번달은 {}월로 가을입니다.".format(now.month))
+# if now.month == 12 or 1 <=now.month <= 2:
+#     print("이번달은 {}월도 겨울입니다.".format(now.month))
+
+########################################################################################################################
+#짝수 홀수 구분하기~!
+# num = input("숫자를 입력해주세요 > ")
+#<1안>
+# if num % 2 == 0:
+#     print("짝수 입니다.")
+# if num % 2 == 1:
+#     print("홀수 입니다.")
+#<2안>
+# last_num = num[-1]
+# int_num = int(last_num)
+# #줄바꿈 => \
+# if (int_num == 0 \
+#         or int_num == 2 \
+#         or int_num == 4 \
+#         or int_num == 6 \
+#         or int_num == 8):
+#     print("짝수 입니다.")
+#else:
+#   print("홀수 입니다")
+# if int_num == 1 \
+#         or int_num == 3 \
+#         or int_num == 5 \
+#         or int_num == 7 \
+#         or int_num == 9:
+#     print("홀수 입니다.")
+#<3안>
+# if num[-1] in '02468':
+#     print("짝수 입니다.")
+# else:
+#     print("홀수 입니다.")
