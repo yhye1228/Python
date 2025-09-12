@@ -21,3 +21,11 @@ i=2;
 # print("문자열 자료: ", string_a + string_b)
 # print("숫자 자료: ", int_a + int_b)
 
+r = int(input("구의 반지름을 입력해주세요 : "))
+pi = 3.141592
+volumn = (4/3)*pi*r**3
+area = 4*pi*r**2
+print("= 구의 부피는 {:.2f}".format(volumn))
+print(f"= 구의 겉넓이는 {area}")
+
+# print("= 구의 겉넓이는 ",  int(4*pi*r**2))
