@@ -1,0 +1,49 @@
+#숫자 -> 문자
+# print(str(123.456))
+# salary = input("연봉을 넣어주세요 ")
+#
+#
+# #숫자 -> 문자열 변경 : format(숫자)
+# str_form1 = "컴퓨터 {1}를 배워서 연봉 {0}만 원 되기".format(salary, "Python")#숫자를 써서 입력 순서 바꾸기 가능~!
+# str_form2 = f'연봉 {salary}만 원 되기'    #f_format : ""도 가능~!
+# print(str_form1)
+# print(str_form2)
+
+# print("{:0d}".format(123))
+# print("{:5d}".format(123))
+# print("{:10d}".format(123))#주어진 칸의 뒤부터 채우기
+# print("{:05d}".format(123))#앞을 0으로 채우기
+# print("{:=5d}".format(-123))#부호를 앞으로 밀기
+# print("{:5d}".format(-123))#부호를 뒤로 밀기
+
+#upper, lower
+# str1= "hello"
+# str2 = "HELLO"
+# print(str1.upper())
+# print(str2.lower())
+# print(str1.title())
+
+#strip : 공백제거
+# str1 = "Hello "
+# str2 = str1.strip()
+# print(str2)
+# print(str1)
+# str3 = str1.rstrip()
+# print(str3)
+
+#문자열 구성 파악
+#is○○○()
+# value = input("숫자를 넣어주세요  ")
+# if value.isdecimal():
+#     num = int(value)
+#     result = num + 1000
+#     print(result)
+# else :
+#     print("숫자를 넣어주세요")
+
+#find(), rfind()
+
+#in
+print("안녕" in "안녕하세요")
+#=>true
+
