@@ -1,0 +1,14 @@
+#split() : list형태로 변환
+# a = "10 20 30 40 50"
+# a = a.split(" ")
+# print(a)
+# #=>['10', '20', '30', '40', '50']
+#
+# sending_data = "10, 20, 30, 5000, 400"
+# seperated_data = sending_data.split(",")
+# print(sending_data.strip())
+
+#불 자료형과 if 조건문
+a:bool = True
+print("가방" < "하마")
+#=>True
