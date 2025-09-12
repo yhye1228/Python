@@ -6,4 +6,17 @@ print(list2[0]*3, list2[1]*3, list2[2]*3, list2[3]*3)
 print(len(list1))
 
 #append(), insert()
+
 #로또 프로그램 작성하기
+import random
+list = []
+for i in range(6):
+    value = random.randrange(1,46)
+    print(value)
+    while(value in list):
+        value = random.randrange(1,46)
+    if (value not in list):
+        list.append(value)
+#sort하기
+list.sort()
+print(list)
