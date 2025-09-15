@@ -1,0 +1,92 @@
+import random
+balls = [ball for ball in range(1, 47)] #공들을 로또 구에다 넣기
+#balls = []
+# for ball in range(1, 46):
+#     balls.append(ball)
+# print(balls)
+random.shuffle(balls)
+# print(balls)
+choice_balls = []
+num = []
+for _ in range(100):
+    balls = [ball for ball in range(1, 47)]
+    # print(balls)
+    random.shuffle(balls)
+    for _ in range(6):
+        random.shuffle(balls)
+        choice_balls.append(balls.pop()) #뽑힐때마다 하나씩 줄어듬
+    print("*" * 50)
+    #print(choice_balls)
+    choice_balls.sort()
+    print(choice_balls)
+for i in range(47):
+    n = 0
+    while(i in choice_balls):
+        n += 1
+        choice_balls.remove(i)
+        print(i , ":", n, ":", choice_balls)
+    if(n >= 2):
+        num.insert(i, n)
+        if(n > 15):
+            print(i, " : ", n)
+sum = 0
+# for j in num:
+#     sum += j
+#     #print("합계 : ", sum)
+# print("합계 : ", sum)
+# print("num", num)
+# orign = []
+# orign.append(num)
+# num.sort()
+# print(orign)
+# print(num)
+
+
+# for i in range(100):    # 0~99
+#     print("Hello world ", i)
+
+# for _ in range(100):
+#     print("Hello world ")
+
+# for _ in "Helloworld":
+#     print("Hello world")
+# print(range(100))
+
+#209p
+# array = [273, 32, 103, 57, 52]
+#
+# for element in array:
+#     #array 출력
+#     print(element)
+# print("\n")
+
+# for ch in "안녕하세요":
+#     print("-", ch)
+# print("\n")
+
+# list_of_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# for i in range(3):
+#     for j in range(3):
+#         print(list_of_list[i][j], end=" ")
+#     print()
+
+list_of_list = [[1, 2, 3], [4, 5, 6, 7], [8, 9]]
+# for i in range(3): => Magic code : 확장성이 없음
+#     l = len(list_of_list[i])
+#     for j in range(l):
+#         print(list_of_list[i][j], end=" ")
+#     print()
+
+# for i in list_of_list:
+#     for j in i:
+#         print(j, end=" ")
+#     print()
+
+# count = 0
+# for i in range(800, 901):
+#     if i % 4 != 0:
+#         print('%4d'% i, end=" ")
+#         count = count + 1
+#     if count % 10 == 0:
+#         print()
+
