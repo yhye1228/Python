@@ -1,0 +1,38 @@
+#중복검사??pop()함수 이용
+import random
+list = []
+while(len(list) < 6):
+    value = random.randrange(1,46)
+
+    if(value in list):
+        list.remove(value)
+    # if(value not in list):
+    #     list.append(value)
+    list.append(value)
+list.sort()
+print(list)
+
+
+
+#append, insert
+
+
+#extend
+
+#del 키워드, pop() : 인덱스로 제거
+
+#remove(값) : 값으로 제거
+list_a = [1,2,1,2]
+while(2 in list_a):
+    list_a.remove(2)
+print(list_a)
+
+#clear()
+
+#sort()
+
+#in/not in
+
+#for i in range(num);
+for i in range(100):
+    print("출력", i)
