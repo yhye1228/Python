@@ -1,0 +1,38 @@
+# questions = ['tr_in', 'b_s', '_axi', 'air_lane']
+# answers = ['a', 'u', 't', 'p']
+# for i in range(len(questions)):
+#     q = '%s 에서 밑중(_) 안에 들어갈 알파벳은?' %questions[i]
+#     ans = input(q)  #입력받기
+#
+#     if ans == answers[i]:
+#         print('정답입니다.')
+#     else:
+#         print('틀렸습니다.')
+
+#딕셔너리(Dictionary)
+dict_a: dict = {'name':"어벤져스 엔드 게임", 'type' :'히어로 무비'}
+print(dict_a)
+movie_name = dict_a['name']
+print(movie_name)
+dictionary = {
+    "name" : "7D 건조 망고",
+    "type" : "당절임",
+    "ingredient" : ["망고", "설탕", "메타중아황산나트륨", "치자황색소"],
+    "origin" : "필리핀",
+    "age" : 50
+}
+#출력
+print(dictionary.keys())
+print("name : ", dictionary["name"])
+print("type : ", dictionary["type"])
+print("ingredient : ", dictionary["ingredient"])
+print(dictionary["ingredient"][2])
+print("origin : " , dictionary["origin"])
+# print("age : ", dictionary["age"])
+print()
+#값 변경
+dictionary["name"] = "8D 건조 망고"
+print("name : ", dictionary["name"])
+dictionary["price"] = 5000
+print("price : ", dictionary["price"])
+
