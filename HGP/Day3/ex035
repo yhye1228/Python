@@ -1,0 +1,89 @@
+#while
+# while True:
+#     print(".", end="")
+#     =>무한루프
+# C, Java 무한푸르 예
+# for( ; ; ){
+#
+# }
+# while(1){
+#
+# }
+# count = 0#초기값
+# while count < 10:#탈출조건
+#     print(".", end="")
+#     count += 1
+# print()
+
+# values = [1, 2, 1, 2, 1, 2, 1, 2]
+# value = 2
+# cnt = 0
+# while value in values:null이 되어야 끝남
+#     values.remove(value)
+#     cnt += 1
+# print(values)
+# print(cnt)
+
+#5초 동안 반복하기
+# import time
+# number = 0
+# now_time = time.time()
+# print(now_time)
+# future_time = now_time + 5.0
+# while time.time() < future_time:
+#     number += 1
+
+# while now_time < future_time:
+#     now_time = time.time()
+#     number += 1
+
+# print(number)
+# =>76,334,194
+
+#break, continue
+
+# numbers = [5, 15, 6, 20, 7, 25, 30]
+# for number in numbers:
+#     if number < 10:
+#         continue
+#     print(number)
+
+limit = 10000
+i = 1
+sum1 = 0
+while(sum1 < limit):
+    sum1  += i
+    i += 1
+print("{}를 더할 때 {}를 넘으며 그때의 값은 {}입니다.".format(i-1, limit, sum1))
+
+# numbers = [103, 52, 273, 32, 77]
+# sorted_numbers = sorted(numbers)
+# print(f'최솟값 : {min(numbers)}')
+# print(f'최솟값 : {sorted_numbers[0]}')
+# print(f'최댓값 : {max(numbers)}')
+# print(f'최댓값 : {sorted_numbers[len(sorted_numbers) -1 ]}')
+# print(f'총합 : {sum(numbers)}')
+# summation = 0
+# for i in numbers:
+#     summation += i
+# print(summation)
+# print(f'평균값 : {sum(numbers)/len(numbers)}')
+
+# numbers = [number for number in range(10)]
+# print(numbers)
+# iterator = reversed(numbers)
+# print("첫번째 호출")
+# for number in iterator:
+#     print(number, end=' ')
+# print("\n두번째 호출")
+# for number in iterator:
+#     print(number, end=' ')
+# print("\n세번째 호출")
+# iterator = reversed(numbers)
+# for number in iterator:
+#     print(number, end=' ')
+# #=>두번째 호출 없음
+# #<list_reverseiterator object at 0x000001AA273BDE10>
+# # =>주소 출력
+# print("\n")
+
