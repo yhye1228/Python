@@ -1,0 +1,69 @@
+# temp = reversed([1, 2, 3, 4, 5, 6])
+# for i in temp:
+#     print("첫번째 반복분 : {}".format(i))
+# for i in temp:
+#     print("두번째 반복문 : {}".format(i))
+# print("\n")
+#enumerate()
+# enum DIRECTION{
+#     EAST,   #1
+#     WEST,   #2
+#     SOUTH,  #3
+#     NORTH   #4
+# }
+
+# directions = ['EAST', 'WEST', 'SOUTH', 'NORTH']
+# for (index,  direction) in enumerate(directions):
+#     print(f"Index : {index} \t Direction : {direction}")
+# print(enumerate(directions))
+# print(list(enumerate(directions)))<=리스트화 시키기
+
+# number = int(input("정수 입력>"))
+# if number % 2 == 0:
+#     print((
+#         "입력한 문자열은 {}입니다.\n"
+#         "{}은(는) 짝수입니다."
+#     ).format(number, number))
+# else:
+#     print((
+#         "입력한 문자열은 {}입니다.\n"
+#         "{}는(은) 홀수입니다."
+#     ).format(number, number))
+#
+
+# numbers = [1, 2, 3, 4, 5, 6]
+# r_num = reversed(numbers)
+# print("reversed_numbers : ", r_num)
+# print(next(r_num))
+# print(next(r_num))
+# print(next(r_num))
+# print(next(r_num))
+# print(next(r_num))
+# print(next(r_num))
+
+#items()
+# dictionary = {
+#     "key1": "value1",
+#     "key2": "value2",
+#     "key3": "value3",
+# }
+# print("items(): ", dictionary.items())
+# print()
+
+# array1 = []
+# for i in range(0, 20, 2):#0~19까지 2씩 증가
+#     array1.append(i * i)
+# print(array1)
+
+#258p
+# array = [i * i
+#          for i
+#          in range(0, 20, 2)]
+# print(array)
+#
+# array = ["사과", "자두", "초콜릿", "바나나", "체리"]
+# output = [fruit
+#           for fruit in array
+#           if fruit != "초콜릿"]
+# print(output)
+# #=>가독성은 떨어지지만 속도가 빠름
