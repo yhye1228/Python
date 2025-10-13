@@ -80,7 +80,9 @@
 # print("5! = ", fac(5))
 n=10
 def fun(n):
-    if n == 0:
+    if n < 0:
+        return 0
+    elif n == 0:
         return 1
     else:
         result = n * fun(n-1)
