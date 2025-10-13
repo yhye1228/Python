@@ -41,6 +41,15 @@ from re import Scanner
 # for i in list:
 #     counter[i] = list.count(i)
 # print(counter)
+#############################################################
+# dictionary = dict() #or {}
+# numbers = [1, 2, 3, 4, 1, 2, 3, 1, 4, 1, 2, 3]
+# for number in numbers :
+#     #print(numbers.count(number))
+#     dictionary[number] = numbers.count(number)
+# print("*" * 30)
+# print(f"사용된 숫자의 종류는 {len(dictionary.keys())} 입니다.")
+# print(f"참고 : {dictionary}")
 
 #2. 염기의 개수
 #ctacaatgtcagtatacccattgcattagccgg
@@ -62,17 +71,41 @@ from re import Scanner
 # print("t의 개수 : ", counter['t'])
 # print("g의 개수 : ", counter['g'])
 # print("c의 개수 : ", counter['c'])
+#############################################################
+#dna = "ctacaatgtcagtatacccattgcattagccgg"#immutable list(Sequence)
+# dna = input("염기 서열을 입력해주세요 : ")
+# print(f"a의 갯수 : {dna.count('a')}")
+# print(f"t의 갯수 : {dna.count('t')}")
+# print(f"g의 갯수 : {dna.count('g')}")
+# print(f"c의 갯수 : {dna.count('c')}")
+
 
 #3. 염기코돈 개수
 #ctacaatgtcagtatacccattgcattagccgg
-a = input("염기 서열을 입력해주세요 : ")
-list = []
-print(a[3:6])
-for i in range(int(len(a)/3)):
-    list.append(a[i*3:(i+1)*3])
-    i += 1
-counter = {}#딕셔너리
-print(list)
-for j in list:
-    counter[j] = list.count(j)
-print(counter)
+# a = input("염기 서열을 입력해주세요 : ")
+# list = []
+# # print(a[3:6]) 3~5
+# for i in range(int(len(a)/3)):
+#     list.append(a[i*3:(i+1)*3])
+#     i += 1
+# counter = {}#딕셔너리
+# print(list)
+# for j in list:
+#     counter[j] = list.count(j)
+# print(counter)
+#############################################################
+#dna = "ctacaatgtcagtatacccattgcattagccgg"#immutable list(Sequence)
+dna = input("염기 서열을 입력해주세요 : ")
+#window method
+codon_list = [] # empty list
+codon_dict = {} # empty dictionary
+for i in range(0, len(dna), 3):
+    codon_list.append(dna[i: i+3])
+print(codon_list)
+
+for (offset, codon_dna) in enumerate(codon_list):
+    if len(codon_list[offset]) != 3:
+        continue
+    else:
+        codon_dict[codon_dna] = codon_list.count(codon_list[offset])
+print(codon_dict)
