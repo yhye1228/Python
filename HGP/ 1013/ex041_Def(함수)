@@ -1,0 +1,104 @@
+#list평탄화 : list안에 list가 들어 있음(행렬)을 한줄로 바꿔주기 => 연산을 위해
+#도전문제4
+# numbers = [1, 2, [3, 4], 5, [6, 7], [8, 9,]]
+# new_numbers = [] # 빈 리스트
+# for number in numbers:
+#     if type(number) is list:
+#         print(number)
+#         # print("대상은 리스트 입니다.")
+#         for item in number:
+#             new_numbers.append(item)
+#     else:
+#         new_numbers.append(number)
+# print(new_numbers)
+
+###274p 함수만들기########################################################################################################
+# def main():
+#     return 0
+#=>def : 키워드, reserved word, 예약어 => 함수를 객체로 만든다. result = main가능!!!
+# def print3_times() -> None:# -> return처럼 사용
+#     for _ in range(3):
+#         print("안녕하세요")
+
+# print3_times()
+
+#value : parameter, 매개변수
+# def print_n_times(value, n):
+#     for _ in range(n):
+#         print(value)
+
+# print_n_times("Hello", 5)
+# print_n_times(value = "Hello", n = 5)
+# print("#"*50)
+# print_n_times(n=5, value="World")
+#=> value : parameter, 매개변수
+#=> "Hello" : argument
+
+#default 값 지정하기
+# def print_n_times(value="None", n=1):
+#     for _ in range(n):
+#         print(value)
+# print_n_times();
+
+#default 값 지정하기2
+# def print_n_times(value, n=2):
+#     for _ in range(n):
+#         print(value)
+# print_n_times(1, 3 ); # value = 5
+#1을 3번 반복
+
+###278p#################################################################################################################
+# def print_n_times(n, *values):  #packed
+#     # *values : 가변 매개변수
+#     # n번 반복
+#     for i in range(n):
+#         for value in values:    #unpack
+#             print(value)
+#         # 단순한 줄바꿈
+#         print()
+# def print_n_times(n, *values): #*values는 뒤에 써주기!!!
+
+# print_n_times(3, "안녕하세요", "즐거운", "파이선 프로그래밍")
+
+#기본 매개변수
+# print(value, sep=' ', end='\n', file= sys.stdout, flush = False)
+#stdout, stdin, stderr(버퍼를 거치지 않음)
+#개행문자:flush(출력버퍼 비우기)기능도 가지고 있다.
+
+#default 파라미터는 뒤에 써주기
+# def print_n_times(n=2, *args ):=> error
+# def print_n_times(*args, n=2):
+#     for _ in range(n):
+#         for arg in args:
+#             print(arg)
+#
+# print_n_times("안녕하세요", "즐거운", "파이썬프로그램")
+
+###283p#################################################################################################################
+# def test(a=0, b= 10, c=100):
+#     print(a + b + c)
+#
+# test(10, 20, 30)
+# test(100)
+# test(10, 20)
+# test(1)
+
+###p#################################################################################################################
+def return_test() -> None:
+    print("A 위치 입니다.")
+    return
+    print("B 위치 입니다.")
+
+value = return_test()
+print(value)
+
+###268p#################################################################################################################
+# def return_test():
+#     return 100
+# 
+# value = return_test()
+# value = return_test
+#=><function return_test at 0x00000176B45EF240>
+print(value)
+
+
