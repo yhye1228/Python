@@ -9,6 +9,7 @@
 # tup2 = (40, 50, 60)
 # tup3 = tup1 + tup2
 # print(tup3)
+from re import Scanner
 
 #2진수 변환
 # print("{:b}".format(10))
@@ -35,8 +36,43 @@
 # print("합계 : ", summation)
 
 #1. 숫자의 종류
-list = [1, 2, 3, 4, 1, 2, 3, 1, 4, 1, 2, 3]
-counter = {}
-for i in list:
-    counter[i] = list.count(i)
+# list = [1, 2, 3, 4, 1, 2, 3, 1, 4, 1, 2, 3]
+# counter = {}
+# for i in list:
+#     counter[i] = list.count(i)
+# print(counter)
+
+#2. 염기의 개수
+#ctacaatgtcagtatacccattgcattagccgg
+# a = input("염기 서열을 입력해주세요 : ")
+# print("a : ", a)
+# print(len(a))
+# # print(a[0])
+# list =[]
+# for i in range(len(a)):
+#     list.append(a[i])
+#     i += 1
+#
+# print("list : ", list)
+# counter = {}#딕셔너리
+# for i in list:
+#     counter[i] = list.count(i)
+# print(counter)
+# print("a의 개수 : ", counter['a'])
+# print("t의 개수 : ", counter['t'])
+# print("g의 개수 : ", counter['g'])
+# print("c의 개수 : ", counter['c'])
+
+#3. 염기코돈 개수
+#ctacaatgtcagtatacccattgcattagccgg
+a = input("염기 서열을 입력해주세요 : ")
+list = []
+print(a[3:6])
+for i in range(int(len(a)/3)):
+    list.append(a[i*3:(i+1)*3])
+    i += 1
+counter = {}#딕셔너리
+print(list)
+for j in list:
+    counter[j] = list.count(j)
 print(counter)
