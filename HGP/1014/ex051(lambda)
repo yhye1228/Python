@@ -1,0 +1,86 @@
+#lambda함수
+#간단하게 쓰고 버리자
+def square(x:int):
+    return x**2
+
+# print(square(x=2))
+
+v1 = [1,2,3,4]
+# print(square(v1))
+result = map(square, v1)
+print(result)
+#=><map object at 0x000001BD340044C0>
+for i in result:
+    print(i, end=" ")
+print()
+#=>1 4 9 16
+###람다함수 사용방법(map, filter)##########################################################################################
+need1 = lambda x: x ** 2
+result2 = list(map(need1, [2,4,6,8]))
+print(result2)
+#=>[4, 16, 36, 64]
+
+result3 = list(map(lambda x: x ** 2, [2, 4, 6, 8, 10]))#lambda : 한번쓰고 버려지는 함수
+print(result3)
+#=>[4, 16, 36, 64, 100]
+
+network = list(filter(lambda x: x > 0.6, [0.1, 0.7, 0.8, 0.3, 0.9, 1.0]))
+print(network)
+########################################################################################################################
+NT_file = open("network_data.txt", 'w', encoding='utf-8')
+NT_file.write(str(network))
+NT_file.close()
+###323p(map, filter)####################################################################################################
+# def power(item):
+#     return item * item
+# def under_3(item):
+#     return item < 3
+#
+# #변수선언
+# list_input_a = [ 1, 2, 3, 4, 5]
+#
+# #map()함수 사용
+# output_a = map(power, list_input_a)
+# print("# map() 함수의 실행결과")
+# print("map(power, list_input_a) : ", output_a)
+# print("map(power, list_input_a) : ", list(output_a))
+# print()
+#
+# #filter함수 사용
+# output_b = filter(under_3, list_input_a)
+# print("filter()함수의 실행결과")
+# print("filter(under_3, list_input_a) : ", output_b)
+# print("filter(under_3, list_input_a) : ", list(output_b))
+# print()
+###325p(lambda)#################################################################################################################
+# power = lambda x : x * x
+# under_3 = lambda x : x < 3
+#
+# list_input_a = [ 1, 2, 3, 4, 5]
+#
+# output_a = map(power, list_input_a)
+# print("#map() 함수의 실행결과")
+# print("map(power, list_input_a) : ", output_a)
+# print("map(power, list_input_a) : ", list(output_a))
+# print()
+#
+# output_b = filter(under_3, list_input_a)
+# print("# filter() 함수의 실행결과")
+# print("filter(under_3, list_input_a) : ", output_b)
+# print("filter(under_3, list_input_a) : ", list(output_b))
+# print()
+###326p#################################################################################################################
+# list_input_a = [1, 2, 3, 4, 5]
+#
+# output_a = map(lambda x: x * x, list_input_a)
+# print("#map() 함수의 실행결과")
+# print("map(power, list_input_a) : ", output_a)
+# print("map(power, list_input_a) : ", list(output_a))
+# print()
+#
+# output_b = filter(lambda x: x < 3, list_input_a)
+# print("# filter() 함수의 실행결과")
+# print("filter(under_3, list_input_a) : ", output_b)
+# print("filter(under_3, list_input_a) : ", list(output_b))
+# print()
+
