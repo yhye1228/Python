@@ -14,6 +14,7 @@ for i in result:
     print(i, end=" ")
 print()
 #=>1 4 9 16
+
 ###람다함수 사용방법(map, filter)##########################################################################################
 need1 = lambda x: x ** 2
 result2 = list(map(need1, [2,4,6,8]))
@@ -26,10 +27,12 @@ print(result3)
 
 network = list(filter(lambda x: x > 0.6, [0.1, 0.7, 0.8, 0.3, 0.9, 1.0]))
 print(network)
+
 ########################################################################################################################
 NT_file = open("network_data.txt", 'w', encoding='utf-8')
 NT_file.write(str(network))
 NT_file.close()
+
 ###323p(map, filter)####################################################################################################
 # def power(item):
 #     return item * item
@@ -52,6 +55,7 @@ NT_file.close()
 # print("filter(under_3, list_input_a) : ", output_b)
 # print("filter(under_3, list_input_a) : ", list(output_b))
 # print()
+
 ###325p(lambda)#################################################################################################################
 # power = lambda x : x * x
 # under_3 = lambda x : x < 3
@@ -69,6 +73,7 @@ NT_file.close()
 # print("filter(under_3, list_input_a) : ", output_b)
 # print("filter(under_3, list_input_a) : ", list(output_b))
 # print()
+
 ###326p#################################################################################################################
 # list_input_a = [1, 2, 3, 4, 5]
 #
