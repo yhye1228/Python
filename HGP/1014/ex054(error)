@@ -32,18 +32,51 @@
 # finally:
 #     print("프로그램이 종료 되었습니다.")
 ###377p finally 키워드 활용###############################################################################################
-def write_text_file(filename,text):
-    try:
-        file = open(filename, 'w', encoding='utf-8')
-        #return
-        file.write(text)
-        file.write('\n')
-    except:
-        print("오류가 발생했습니다.")
-    finally:
-        file.close()
+# def write_text_file(filename,text):
+#     try:
+#         file = open(filename, 'w', encoding='utf-8')
+#         #return
+#         file.write(text)
+#         file.write('\n')
+#     except:
+#         print("오류가 발생했습니다.")
+#     finally:
+#         file.close()
+#
+# write_text_file("test.txt", "안녕하세요")
+###예외 고급#############################################################################################################
+# try:
+#     number_input_a = int(input("정수입력>"))
+#     print("원의 반지름 : ", number_input_a)
+#     print("원의 둘레 : ", 2 * 3.14 * number_input_a)
+#     print("원의 넓이 : ", 3.14 * number_input_a ** 2)
+# except Exception as exception:
+#     print("type(exception): ", type(exception))
+#     print("exception: ", exception)
+from sys import exception
 
-write_text_file("test.txt", "안녕하세요")
-###예외 고급###########################################################################################################
-###try except###########################################################################################################
-###try except###########################################################################################################
+###예외 발생 코드##########################################################################################################
+# list_number = [52, 273, 32, 72, 100]
+#
+# try:
+#     number_input = int(input("정수입력>"))
+#
+#     print("{}번째 요소 : {}". format(number_input, list_number[number_input]))
+# except Exception as e:
+#     print("type(e) : ", type(e))
+#     print("exception : ", exception)
+###예외 구분과 예외 객체###########################################################################################################
+list_number = [52, 273, 32, 72, 100]
+
+try:
+    number_input = int(input("정수입력>"))
+
+    print("{}번째 요소 : {}". format(number_input, list_number[number_input]))
+except ValueError as e:
+    print("정수를 입력해 주세요")
+    print("exception : ", e)
+except IndexError as e:
+    print("리스트의 인덱스에서 벗어났습니다.")
+    print("exception : ", e)
+except Exception as e:
+    print("exception : ", e)
