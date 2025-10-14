@@ -15,6 +15,7 @@
 #     return x**2 + 2*x+1
 #
 # print(f2(10))
+
 ###291p#################################################################################################################
 # def mul(*args):
 #     result = 1
@@ -22,7 +23,7 @@
 #         result *= arg
 #     return result
 #
-# print(mul(5,7,9))
+# print(mul(5,7,9,10))
 
 ###3의 배수의 합##########################################################################################################
 # def sum_besu3(n):
@@ -35,6 +36,7 @@
 # result = sum_besu3(num)
 #
 # print('1~%d까지의 정수중 3의 배수의 합 : ', num)
+
 ###원의 면적과 원주########################################################################################################
 # def cir_area(radius):
 #     area = radius * radius * 3.14
@@ -45,6 +47,7 @@
 #     return circum
 #
 # b= ???
+
 ###최대공약수 구하기#######################################################################################################
 # def computeMaxGong(x, y):
 #     if x > y:
@@ -58,15 +61,57 @@
 #
 # value = computeMaxGong(20, 25)
 # print(value)
+
 ###소수구하기#############################################################################################################
+# count = 0
+# n = 100
+# def prime(n):
+#     for i in range(2, n):
+#         if n % i != 0:
+#             global count
+#             count += 1
+#         else:
+#             break
+#     if(count == n-2):
+#         return n
+#     else:
+#         return ""
+# def inPrime(n):
+#     primes = []
+#     for i in range(2, n+1):
+#         global count
+#         count = 0
+#         primes.append(prime(i))
+#         
+#     return primes
+
+# print("소수는 : ", inPrime(n))
 
 
 ###세 수중 가장 큰 수 찾기#################################################################################################
-
+# def maxNum(a, b, c):
+#     max = a
+#     if a < b:
+#         max = b
+#         if b < c:
+#             max = c
+#     return max
+# print(maxNum(100,22, 3))
 
 
 ###최소 공배수 구하기######################################################################################################
-
+# def computeMaxGong(x, y)->int:
+#     if x > y:
+#         small = y
+#     else :
+#         small = x
+#     for i in range(1, small+1):
+#         if((x%i == 0) and (y%i ==0)):
+#             result = i
+#     return (x * y)/result
+#
+# value = computeMaxGong(20, 25)
+# print(value)
 
 
 ###재귀함수###############################################################################################################
@@ -78,17 +123,17 @@
 #     return result
 #
 # print("5! = ", fac(5))
-n=10
-def fun(n):
-    if n < 0:
-        return 0
-    elif n == 0:
-        return 1
-    else:
-        result = n * fun(n-1)
-    return result
-
-print(n, "! = ", fun(n))
+# n=10
+# def fun(n):
+#     if n < 0:
+#         return 0
+#     elif n == 0:
+#         return 1
+#     else:
+#         result = n * fun(n-1)
+#     return result
+#
+# print(n, "! = ", fun(n))
 # fun(5) = 5 * fun(4)
 # fun(4) = 4 * fun(3)
 # fun(3) = 3 * fun(2)
