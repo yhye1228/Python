@@ -10,6 +10,7 @@
 # contents = file.read()# 한줄만 읽어오기 : readline
 # file.close()
 # print(contents)
+
 ###with#################################################################################################################
 # with open('result.txt', 'w', encoding='utf-8') as file:
 #     file.write("안녕~! with")
@@ -19,6 +20,7 @@
 # with open('result.txt', 'r', encoding='utf-8') as file:
 #     read_data = file.read()
 # print(read_data)
+
 ########################################################################################################################
 # import random
 #
@@ -32,6 +34,7 @@
 #         height = random.randrange(140, 200)
 #
 #         file.write("{}, {}, {}\n".format(name, weight, height))
+
 ########################################################################################################################
 with open('info2.csv', 'r', encoding='cp949') as file:
     read_data = file.read()
