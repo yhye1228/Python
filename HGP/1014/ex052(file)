@@ -1,0 +1,38 @@
+###파일 열고 닫기#########################################################################################################
+# file = open("basic.txt", "a", encoding='utf-8') #utf-8 : unicode
+# file.write("Hello Python Programming...")
+# file.write("\n")
+# file = open("basic.txt", "a", encoding='utf-8')
+# file.write("안녕 파이선 프로그래밍...!")
+# file.write("\n")
+# file.close()
+# file = open("basic.txt", 'r', encoding='utf-8')
+# contents = file.read()# 한줄만 읽어오기 : readline
+# file.close()
+# print(contents)
+###with#################################################################################################################
+# with open('result.txt', 'w', encoding='utf-8') as file:
+#     file.write("안녕~! with")
+#     file.write("\n")
+#     file.write("안드로이드\n")
+#     file.write("OS")
+# with open('result.txt', 'r', encoding='utf-8') as file:
+#     read_data = file.read()
+# print(read_data)
+########################################################################################################################
+# import random
+#
+# hanguls = list("가나다라마바사아자차카타파하")
+#
+# # with open('info.csv', 'w', encoding='utf-8') as file:
+# with open('info2.csv', 'w', encoding='cp949') as file:#우클릭>다음에서 열기>탐색기>>엑셀
+#     for i in range(1000):
+#         name = random.choice(hanguls) + random.choice(hanguls)
+#         weight = random.randrange(40, 100)
+#         height = random.randrange(140, 200)
+#
+#         file.write("{}, {}, {}\n".format(name, weight, height))
+########################################################################################################################
+with open('info2.csv', 'r', encoding='cp949') as file:
+    read_data = file.read()
+    print(read_data)
