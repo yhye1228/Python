@@ -34,20 +34,21 @@
 ###305p 리스트 평탄화#####################################################################################################
 #list평탄화 : list안에 list가 들어 있음(행렬)을 한줄로 바꿔주기 => 연산을 위해
 #도전문제4
-# numbers = [1, 2, [3, 4], 5, [6, 7], [8, 9]]
-# new_numbers = [] # 빈 리스트
-# def list_add():
-#     for n in numbers:
-#         if type(n) == list:
-#             for i in n:
-#              new_numbers.append(i)
+# example = [[1, 2, 3], [4, [5, 6]], 7, [8, 9]]
+# def flatten(data):
+#     output = []
+#     for item in data:
+#         if type(item) == list:
+#             output += flatten(item)
+#             #print("list : ", output)
 #         else:
-#             new_numbers.append(n)
-#     return new_numbers
+#             output.append(item)
+#             #print("data : ", output)
+#     return output
+# print("원본 : ", example)
+# print("평단화 : ", flatten(example))
+#=>메모리를 많이 차지 하는 단점이 있음(한번 만들어주면 유용하게 사용가능)
 #
-# list_add()
-# print(new_numbers)
-#=>재귀함수로 바꾸기
 ###튜플() : 리스트와 유사하지만 요소 변경 불가, 개수가 2개 이상이거나#############################################################
 #tuple = (20, 30, 40)
 #tuple2 = 20, 30, 40
