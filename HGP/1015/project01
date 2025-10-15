@@ -1,0 +1,29 @@
+html = '<h1 id="title">럭스</h1><div class="top"><ul class="menu"><li><a href="http://www.luxwave.co.kr/index.html" class="login">로그인</a></li></ul><ul class="brand"><li><a href="http://www.luxwave.co.kr/media/">한빛미디어</a></li><li><a href=http://www.luxwave.co.kr/song/">럭스웨이브</a></li></ul></div>'
+# print(html)
+###가독성 있게 정렬하기####################################################################################################
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(markup=html, features="html.parser")
+# print(soup.prettify())=>예쁘게 출력
+print(soup.h1)
+#=><h1 id="title">럭스</h1>
+tag_h1 = soup.h1
+# print(tag_h1.text)=>럭스
+tag_div = soup.div
+# print(tag_div.text)
+tag_ul = soup.ul    # 한 개인 경우
+# print(tag_ul.text)
+tag_ul_all = soup.find_all('ul') # 여러개인 경우 -> list 타입
+# print(tag_ul_all[0].text)
+tag_li_all = soup.find_all('li')
+print(tag_li_all[1].text)
+# tag_a = soup.a
+# print(tag_a.text)
+########################################################################################################################
+# https://www.hollys.co.kr/robots.txt
+# User-agent: *
+# Disallow: /membership
+# Disallow: /myHollys
+# =>허가 안됨
+###매장정보 가져오기#######################################################################################################
+# https://www.hollys.co.kr/store/korea/korStore2.do
+# webCrawling
