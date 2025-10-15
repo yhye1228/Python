@@ -1,0 +1,29 @@
+import columns
+from bs4 import BeautifulSoup, Tag
+import urllib.request
+
+Hollys_stores = []
+for page in range(1, 47):
+    Hollys_url = f"https://www.hollys.co.kr/store/korea/korStore2.do?pageNo={page}&sido=&gugun=&store="
+    # print(Hollys_url)
+    html = urllib.request.urlopen(url = Hollys_url)
+    soup_Hollys = BeautifulSoup(markup=html, features='html.parser')
+    print(soup_Hollys.prettify())
+    tag_tbody = soup_Hollys.find('tbody')
+    for store in tag_tbody.find_all('tr'):
+        if len(store) <= 3:
+            break
+        store_td = store.find_all('td')
+        store_name = store_td[1].text
+        store_sido = store_td[0].text
+        store_address = store_td[3].text
+        store_phone = store_td[5].text
+        Hollys_stores.append([store_name] + [store_sido] + [store_address] + [store_phone])
+print(f"Result crawling : {Hollys_stores}")
+
+import pandas as pd
+Hollys_TBL = pd.DataFrame(Hollys_stores, columns=["매장", "시도", "주소", "전화번호"])
+Hollys_TBL.to_csv(".Hollys_TBL_EXCEL.csv", encoding="cp949", mode='w', index=True)
+Hollys_TBL.to_csv(".Hollys_TBL.csv", encoding='utf-8', mode='w', index=True)
+
+    # print(tag_tbody)
