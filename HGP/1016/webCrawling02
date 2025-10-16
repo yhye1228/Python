@@ -1,0 +1,41 @@
+from bs4 import BeautifulSoup
+import urllib.request
+import pandas as pd
+from selenium import webdriver
+import time
+
+
+
+def kosis(data):
+    nuri_url = "https://www.index.go.kr/unify/idx-info.do?pop=1&idxCd=5060"
+    wd = webdriver.Chrome() # 생성자 호출(크롬)
+
+    wd.get(nuri_url)
+    time.sleep(2)   #웹 페이지 연결할 동안 2초간 대기
+    try:
+        #<a class="btn_base btn_bl" href="javascript:fn_statChange('Y');">조회</a>
+        wd.execute_script("fn_statChange('Y')")
+        time.sleep(1) # 스크립트 실행 할 동안 1초 대기
+        html = wd.page_source
+        soupCB = BeautifulSoup(html, 'html.parser')
+        print(soupCB.prettify())
+        total = soupCB.select('table > tbody > tr > td')
+        for item in total:
+            item_num = item.text
+            data.append([item_num])
+    except Exception as e:
+        print(e)
+    return
+
+def main():
+    data = []
+    print('kosis crawling >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    kosis(data)
+
+    ko_tbl = pd.DataFrame(data, columns=['총인구'])
+    ko_tbl.to_csv('./kosis_EXCEL.csv', encoding='cp949', mode='w', index=True)
+    ko_tbl.to_csv('./kosis.csv', encoding='utf-8', mode='w', index=True)
+    print('.kosis.csv 파일 저장 완료')
+
+if __name__ == '__main__':
+    main()
