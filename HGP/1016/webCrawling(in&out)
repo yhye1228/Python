@@ -1,0 +1,155 @@
+from bs4 import BeautifulSoup
+import urllib.request
+import pandas as pd
+
+###outPeople#############################################################################################################
+# print(out_url)
+# def makeCSV(outPeople):
+#
+#     out_url = "https://www.moj.go.kr/moj/2413/subview.do"
+#
+#     html = urllib.request.urlopen(url = out_url)
+#     soup_outs = BeautifulSoup(markup=html, features='html.parser')
+#     print(soup_outs.prettify())
+#     tag_tbody = soup_outs.find_all('tbody')
+#
+#     for tr in tag_tbody[2].find_all('tr'):
+#         # print(tr)
+#         try:
+#             tr_th = tr.find_all('th')
+#             # print(tr_th[0].text)
+#             tr_td = tr.find_all('td')
+#             title = tr_th[0].text
+#
+#             def clean_number(text):
+#                 return text.replace(',', '').strip()
+#
+#             out2020 = clean_number(tr_td[0].text)
+#             out2021 = clean_number(tr_td[1].text)
+#             out2022 = clean_number(tr_td[2].text)
+#             out2023 = clean_number(tr_td[3].text)
+#             out2024 = clean_number(tr_td[4].text)
+#             outPeople.append([title] + [out2020] + [out2021] + [out2022] + [out2023] + [out2024])
+#         except Exception as ex:
+#             print("[ERROR]", ex)
+#             continue
+#     print(f"Result crawling : {outPeople}")
+#
+#
+# def main():
+#     outPeople = []
+#     # inPeople = []
+#     print("Crawling makeCSV>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+#     makeCSV(outPeople)
+#
+#     outPeople_TBL = pd.DataFrame(outPeople, columns=["항목", "2020", "2021", '2022', '2023', '2024'])
+#     outPeople_TBL.to_csv(".outPeople_EXCEL.csv", encoding="cp949", mode='w', index=False)
+#     outPeople_TBL.to_csv(".outPeople_TBL.csv", encoding="utf-8", mode='w', index=False)
+#     print("파일 저장 완료 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+
+
+###out People############################################################################################################
+###in People#############################################################################################################
+def makeCSV(inPeople):
+
+    out_url = "https://www.moj.go.kr/moj/2413/subview.do"
+
+    html = urllib.request.urlopen(url = out_url)
+    soup_outs = BeautifulSoup(markup=html, features='html.parser')
+    print(soup_outs.prettify())
+    tag_tbody = soup_outs.find_all('tbody')
+
+    for tr in tag_tbody[0].find_all('tr'):
+        # print(tr)
+        try:
+            tr_th = tr.find_all('th')
+            # print(tr_th[0].text)
+            tr_td = tr.find_all('td')
+            title = tr_th[0].text
+
+            def clean_number(text):
+                return text.replace(',', '').strip()
+
+            out2020 = clean_number(tr_td[0].text)
+            out2021 = clean_number(tr_td[1].text)
+            out2022 = clean_number(tr_td[2].text)
+            out2023 = clean_number(tr_td[3].text)
+            out2024 = clean_number(tr_td[4].text)
+            inPeople.append([title] + [out2020] + [out2021] + [out2022] + [out2023] + [out2024])
+        except Exception as ex:
+            print("[ERROR]", ex)
+            continue
+    print(f"Result crawling : {inPeople}")
+
+
+def main():
+    outPeople = []
+    inPeople = []
+    print("Crawling makeCSV>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    makeCSV(inPeople)
+
+    outPeople_TBL = pd.DataFrame(inPeople, columns=["항목", "2020", "2021", '2022', '2023', '2024'])
+    outPeople_TBL.to_csv(".inPeople_EXCEL.csv", encoding="cp949", mode='w', index=False)
+    outPeople_TBL.to_csv(".inPeople_TBL.csv", encoding="utf-8", mode='w', index=False)
+    print("파일 저장 완료 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+
+
+###in People#############################################################################################################
+if __name__ == "__main__":
+    main()
+# for tbody in tag_tbody:
+#     print(tbody)
+    # for tr in tbody.find_all('tr'):
+        # print(tr)
+        #데이터 입력
+        # tr_td = tr.find_all('td')
+        # in2020 = tr_td[0].text
+        # in2021 = tr_td[1].text
+        # in2022 = tr_td[2].text
+        # in2023 = tr_td[3].text
+        # in2024 = tr_td[4].text
+
+        # tr_th = tr.find_all('th')
+        # print(tr_th[0].text)
+        # 귀화
+        # 국적회복
+        # 혼인귀화자
+        # 국적상실
+        # 국적이탈
+    # print(tbody_tr[0])
+    # tr_th = tr.find_all('th')
+    # print(tr_th[0].text)
+    # tr_td = tr.find_all('td')
+    # print(tr_td)
+
+# for tr in tag_tbody:
+#     print(tr)
+
+# for th in tag_tbody.find_all('th'):
+#     print(th.text)
+    # if th.text == '귀화':
+    #     for td in th.find_all('td'):
+    #         print(td[0].text)
+        #     in2020 = td[0].text
+        #     in2021 = td[1].text
+        #     in2022 = td[2].text
+        #     in2023 = td[3].text
+        #     in2024 = td[4].text
+        # inPeople.append()
+# tag_tbody = soup_Hollys.find('tbody')
+#     for store in tag_tbody.find_all('tr'):
+#         if len(store) <= 3:
+#             break
+#         store_td = store.find_all('td')
+#         store_name = store_td[1].text
+#         store_sido = store_td[0].text
+#         store_address = store_td[3].text
+#         store_phone = store_td[5].text
+#         Hollys_stores.append([store_name] + [store_sido] + [store_address] + [store_phone])
+# print(f"Result crawling : {Hollys_stores}")
+
+
+# html = urllib.request.urlopen(url = Hollys_url)
+#     soup_Hollys = BeautifulSoup(markup=html, features='html.parser')
+#     print(soup_Hollys.prettify())
+#     tag_tbody = soup_Hollys.find('tbody')
