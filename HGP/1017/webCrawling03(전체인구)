@@ -1,0 +1,91 @@
+from bs4 import BeautifulSoup as BS
+import urllib.request
+import pandas as pd
+
+###총인구################################################################################################################
+# def totalPeople(total):
+#
+#     total_url = "https://www.moj.go.kr/moj/2412/subview.do"
+#     # from 법무부 > 법령/자료 > 통계정보 > 출입국통계 > 체류외국인
+#
+#     html = urllib.request.urlopen(url = total_url)
+#
+#     outs = BS(markup=html, features='html.parser')
+#     # print(outs.prettify())
+#     # tag_tbody = outs.find_all('tbody')
+#     # print(tag_tbody)
+#     tag_tbody= outs.find_all('tbody')
+#     # print(tag_tbody)
+#     for tr in tag_tbody[0].find_all('tr'):
+#         try:
+#             title = tr.find('th').text
+#             tr_td = tr.find_all('td')
+#
+#             total2020 = tr_td[0].text
+#             total2021 = tr_td[1].text
+#             total2022 = tr_td[2].text
+#             total2023 = tr_td[3].text
+#             total2024 = tr_td[4].text
+#
+#             total.append([title] + [total2020] + [total2021] + [total2022] + [total2023] + [total2024])
+#         except Exception as e:
+#             print("[ERROR]", e)
+#             continue
+#     print(f"Crawling  : {total}")
+#
+# def main():
+#     total = []
+#     print("Crawling total >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+#     totalPeople(total)
+#
+#     total_TBL = pd.DataFrame(total, columns = ["항목", '2020', '2021', '2022', '2023', '2024'])
+#     total_TBL.to_csv(".totalPeople_EXCEL.csv", encoding='cp949', mode='w', index=False)
+#     total_TBL.to_csv('.totalPeople_TBL.csv', encoding='utf-8', index=False)
+#     print("파일 저장 완료 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+#
+# if __name__ == "__main__":
+#     main()
+
+###체류 외국인(단기/장기)################################################################################################################
+def Foregine(foregine):
+
+    total_url = "https://www.moj.go.kr/moj/2412/subview.do"
+    # from 법무부 > 법령/자료 > 통계정보 > 출입국통계 > 체류외국인 #
+
+    html = urllib.request.urlopen(url = total_url)
+
+    outs = BS(markup=html, features='html.parser')
+    # print(outs.prettify())
+    # tag_tbody = outs.find_all('tbody')
+    # print(tag_tbody)
+    tag_tbody= outs.find_all('tbody')
+    # print(tag_tbody)
+    for tr in tag_tbody[1].find_all('tr'):
+        try:
+            title = tr.find('th').text
+            tr_td = tr.find_all('td')
+
+            foregine2020 = tr_td[0].text
+            foregine2021 = tr_td[1].text
+            foregine2022 = tr_td[2].text
+            foregine2023 = tr_td[3].text
+            foregine2024 = tr_td[4].text
+
+            foregine.append([title] + [foregine2020] + [foregine2021] + [foregine2022] + [foregine2023] + [foregine2024])
+        except Exception as e:
+            print("[ERROR]", e)
+            continue
+    print(f"Crawling  : {foregine}")
+
+def main():
+    foregine = []
+    print("Crawling total >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    Foregine(foregine)
+
+    foregine_TBL = pd.DataFrame(foregine, columns = ["항목", '2020', '2021', '2022', '2023', '2024'])
+    foregine_TBL.to_csv(".foregine_EXCEL.csv", encoding='cp949', mode='w', index=False)
+    foregine_TBL.to_csv('.foregine_TBL.csv', encoding='utf-8', index=False)
+    print("파일 저장 완료 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+
+if __name__ == "__main__":
+    main()
