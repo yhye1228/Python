@@ -4,3 +4,39 @@ plt.xlabel('x-label')
 plt.ylabel('y-label')
 plt.plot([1, 2, 3, 4],[1,2,3,4])
 plt.show()#생략가능
+
+#이차함수 구하기
+import numpy as np
+x1 = np.arange(-10, 11)
+y1 = x1**2
+plt.plot(x1, y1)
+plt.show()
+
+#이차함수 구하기(그래프 가로, 세로 비율 일정하게하기)
+import numpy as np
+x1 = np.arange(-10, 11)
+y1 = x1**2
+plt.axis([-50, 50, 0, 100])
+plt.plot(x1, y1)
+plt.show()
+
+#삼차함수 구하기
+import numpy as np
+x1 = np.arange(-10, 11)
+y1 = x1**3
+plt.axis([-100, 100, -100, 100])
+plt.plot(x1, y1)
+plt.show()
+
+#함수 3개 그리기
+x= np.arange(-20, 20)
+y1 = 2 * x
+y2 = (1/3)*x**2 + 5
+y3 = -(x**2) - 5
+plt.plot(x, y1, 'r')
+plt.plot(x, y2, 'b')
+plt.plot(x, y3, 'c')
+plt.axis([-30, 30, -30, 30])
+plt.show()
+
+#
