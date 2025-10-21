@@ -1,0 +1,6 @@
+import matplotlib.pyplot as plt
+
+plt.xlabel('x-label')
+plt.ylabel('y-label')
+plt.plot([1, 2, 3, 4],[1,2,3,4])
+plt.show()#생략가능
