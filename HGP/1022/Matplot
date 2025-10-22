@@ -121,7 +121,20 @@ plt.hist(f2, bins=200, color='green', alpha =.4,\
 plt.axis([-8, 8, 0, 2500])
 plt.legend()
 
-#172p
+#172p상자 수염 그리기
+import numpy as np
+import matplotlib.pyplot as plt
+rand_data = np.random.randn(100)#정규분포 난수 100개
+
+plt.boxplot(rand_data)
+
+np.random.seed(85)
+data1 = np.random.normal(100, 10, 200) #평균이 100이고 분산이 10
+data2 = np.random.normal(100, 40, 200) #평균이 100이고 분산이 40
+data3 = np.random.normal(80, 40, 200) #평균이 80이고 분산이 40
+data4 = np.random.normal(80, 60, 200) #평균이 80이고 분산이 60
+
+plt.boxplot([data1, data2, data3, data4])
  
 #176p
 X = np.linspace(0, 2*np.pi, 200)
