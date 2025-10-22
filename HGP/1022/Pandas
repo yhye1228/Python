@@ -1,0 +1,115 @@
+import pandas as pd
+
+#183p
+#판다스의 주요 특징
+
+#185p시리즈
+a = [1, 2, None, 4]
+import numpy as np
+np_a = np.array(a)
+print(np_a)
+# [1 2 None 4]
+
+se = pd.Series(a)
+print(se)
+# 0    1.0
+# 1    2.0
+# 2    NaN
+# 3    4.0
+
+print(type(se))
+# <class 'pandas.core.series.Series'>
+
+print(se.isna())
+
+se[0]
+
+print(se[2])
+# nan
+
+data = [1, 2, np.nan, 4]
+indexed_se = pd.Series(data, index=('a', 'b', 'c', 'd'))
+print(indexed_se)
+
+print(indexed_se['a'])
+
+#189p
+income = {'1월': 9500, '2월': 6200, '3월': 6050, '4월': 7000}
+income_se = pd.Series(income)   # 월들 인덱스로 하는 매출 시리즈
+print(income_se['1월'])
+print('동윤이네 상점의 수익')
+print(income_se)
+
+month_se = pd.Series(['1월', '2월', '3월', '4월', '총합'])
+income_se = pd.Series([9500, 6200, 6050, 7000])
+isum = np.sum(income_se)
+# income_se[4] = isum
+expense_se = pd.Series([5040, 2350, 2300, 4800])
+esum = np.sum(expense_se)
+# expense_se[4] = esum
+df = pd.DataFrame({'월': month_se, '수익': income_se, '지출':expense_se, '순수익': income_se - expense_se})
+# df['총합'] = df.sum(axis=0)
+print('<동윤이네 상점>')
+df
+
+# print(df)
+
+print(df.iloc[0])
+
+df.iloc[0,1]
+
+m_idx = np.argmax(income_se)
+print(m_idx)
+print('최대 수익이 발생한 월:', month_se[m_idx])
+print(income_se[0])
+np.max(income_se)
+print(np.mean(income_se))
+print(income_se.mean())
+
+#193p
+print(income_se.sum())
+print(expense_se.sum())
+
+#195p
+path = 'https://github.com/dongupak/DataML/raw/main/csv/'
+file = path+'vehicle_prod.csv'
+df = pd.read_csv(file)
+
+print(df)
+
+df = pd.read_csv(file, index_col=0)
+print(df)
+
+print(df.index)
+print(df.columns)
+print(df.loc['China'])
+#df.iloc[...] → 정수 기반 인덱싱만 허용
+
+df['2007']
+
+column_list = df.columns.to_list()
+print(column_list)
+
+list_2008 = df['2008'].to_list()
+print(list_2008)
+
+df['total'] = df[['2007', '2008', '2009', '2010', '2011']].sum(axis=1)
+df['mean'] = df[['2007', '2008', '2009', '2010', '2011']].mean(axis=1)
+print(df)
+
+new_df = df.drop('2007', axis=1)
+#df.drop('2007', inplace=True, axis=1):원본 수정시(사용추천안함)
+print(new_df)
+print(df)
+# new_df2 = df.drop('Mexico', axis=0, inplace=False)
+
+total_df = df.select_dtypes(np.number).sum().rename('Total')
+print(total_df)
+
+#203p
+# df.loc['Total'] = total_df
+copy_df = df.copy()
+copy_df.loc[len(copy_df)] = total_df
+copy_df.rename(index ={6:'Total'}, inplace=True)
+# add_df = df.concat(total_df)
+print(copy_df)
