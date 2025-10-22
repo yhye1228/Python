@@ -1,0 +1,132 @@
+#머신러닝=>
+#-사이킷런 : 느림
+#-텐서플로+케라스:산업
+#-파이토치:연구,학교
+
+#3차원 배열
+#4차원 배열
+# (Frame, 폭, 넓이, RGB)
+
+#open
+#Regression
+#classfy
+
+N = 50
+x = np.arange(N)
+y = np.random.random(size=N)
+plt.plot(x, y, 'g^:')
+
+#linspace
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, np.pi*2, 100)
+fig = plt.figure()
+plt.title("sin cos curve")
+plt.plot(x, np.sin(x), 'r-', label='sin')
+plt.plot(x, np.cos(x), 'b:', label='cos')
+plt.xlabel('x value')
+plt.ylabel('y value')
+plt.legend(loc='upper right')
+#그래프 저장
+fig.savefig('sin_cos_fig.png')
+plt.show()
+#=>우클릭>디스크에서 다시로드
+ 
+#png : tensor=4(너비,높이,rgb,알파-투명도)=>lossless(완벽복원 가능)
+#raw -> BMP -> jpg : 사이즈가 작음(화질이 떨어짐)
+
+fig, ax=plt.subplots(2, 2)
+
+x = np.random.randn(100)
+y = np.random.randn(100)
+ax[0,0].scatter(x,y)
+x = np.arange(10)
+y = np.random.uniform(1,10,10)
+ax[0,1].bar(x,y)
+x = np.linspace(0, 10, 100)
+y = np.cos(x)
+ax[1,0].plot(x,y)
+z = np.random.uniform(0,1,(5,5))
+ax[1,1].imshow(z)
+fig.savefig('subplots.png')
+ 
+# 150~151p 해보기
+ 
+fig = plt.figure()
+N = 30
+x = np.random.rand(N)
+y = np.random.rand(N)
+colors = np.random.rand(N)
+area = (30*np.random.rand(N))**2
+
+plt.scatter(x, y, s=area, c=colors, alpha=0.5)
+fig.savefig("산점도.png")
+ 
+#154p~155p
+x = np.arange(3)
+years = ['2010', '2011', '2012']
+domestic = [6801, 7695, 8010]
+foreign = [777, 1046, 1681]
+
+plt.bar(x, domestic, width= 0.3)
+plt.bar(x+0.3, foreign, width=0.3)
+plt.xticks(x, years)
+ 
+#156p
+y = np.arange(3)
+years = ['2010', '2011', '2012']
+domestic = [6801, 7695, 8010]
+foreign = [777, 1046, 1681]
+
+plt.barh(y, domestic, height=0.25)
+plt.barh(y-0.3, foreign, height=0.25)
+plt.yticks(y, years)
+ 
+#157~158p
+#파이차트와 히트맵
+data = [5,4,6,11]
+clist = ['cyan', 'green', 'orange', 'red']
+# plt.pie(data, autopct = '%.2f', colors=clist)
+explode = [.06, .07, .08, .09]
+plt.pie(data, autopct = '%.2f', colors=clist, labels=data, explode=explode)
+# plt.bar(clist, data)
+ 
+#히트맵159~161p
+data = np.random.random((10, 10))#임의이 수를 가진 10x10 크기의 배열
+plt.imshow(data, cmap='Blues')
+plt.colorbar()
+ 
+#히스토그램(162~)
+heights = np.array([175, 165, 164, 164, 171, 165, 160, 169, 164, 159,
+    163, 167, 163, 172, 159, 160, 156, 162, 166, 162,
+    158, 167, 160, 161, 156, 172, 168, 165, 165, 177])
+plt.hist(heights, bins=16)#히스토그램 bins는 구간의 수
+plt.xlabel("height")
+plt.ylabel("frequency")
+ 
+plt.hist(heights, bins=6, label='cumulative=True', cumulative=True)
+plt.hist(heights, bins=6, label='cumulative=False', cumulative=False)
+plt.legend(loc='upper left')
+ 
+#165p
+#166p
+f1 = np.random.randn(100000) #10만 개의 난수 생성(표준정규분포)
+f2 = np.random.randn(loc=3, scale=1, size=100000)
+plt.hist(f1, bins=200, color='red', alpha =.7,\
+         label='avg = 0, std = 1')
+plt.hist(f2, bins=200, color='green', alpha =.4,\
+         label='avg = 3, std = 1')
+#(xmin, xmax, ymin, ymax)
+plt.axis([-8, 8, 0, 2500])
+plt.legend()
+
+#172p
+ 
+#176p
+X = np.linspace(0, 2*np.pi, 200)
+Y = np.sin(X)
+fig = plt.figure(figsize=(4.2, 3.6))# 처음부터 fig 정의
+plt.plot(X, Y)
+fig.savefig('figsize.png')
+
