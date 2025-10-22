@@ -7,3 +7,23 @@
 #4차원 배열
 # (Frame, 폭, 넓이, RGB)
 
+#open
+#Regression
+#classfy
+
+N = 50
+x = np.arange(N)
+y = np.random.random(size=N)
+plt.plot(x, y, 'g^:')
+
+#linspace
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(0, np.pi*2, 100)
+fig = plt.figure()
+plt.plot(x, np.sin(x), 'r-')
+plt.plot(x, np.cos(x), 'b:')
+#그래프 저장
+fig.savefig('sin_cos_fig.png')
+#=>우클릭>디스크에서 다시로드
+
