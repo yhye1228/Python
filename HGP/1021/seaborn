@@ -213,7 +213,7 @@ print(b)
 c = test_data = a[39:]
 print(c)
 
-#선형방정식
+#선형방정식(linear algebra)
 a = np.array([[1,2], [1,-3]])
 b = np.array([6,1])
 s = np.linalg.solve(a,b)
