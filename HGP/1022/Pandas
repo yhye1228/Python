@@ -106,10 +106,17 @@ print(df)
 total_df = df.select_dtypes(np.number).sum().rename('Total')
 print(total_df)
 
-#203p
+#203p행추가하기
 # df.loc['Total'] = total_df
 copy_df = df.copy()
 copy_df.loc[len(copy_df)] = total_df
 copy_df.rename(index ={6:'Total'}, inplace=True)
 # add_df = df.concat(total_df)
 print(copy_df)
+
+#다른방법1
+#copy_df.loc['Total'] = copy_df.sum()
+
+#다른방법2
+copy_df = copy_df.drop('Total', errors='ignore')#Total행의 유무와 상관없이 안전하게 실행됨
+copy_df.loc['Total'] = copy_df.select_dtypes(np.number).sum().rename('Total')
