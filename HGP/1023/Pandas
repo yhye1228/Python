@@ -1,0 +1,74 @@
+#209p 시각화
+import pandas as pd
+import numpy as np
+path = 'https://github.com/dongupak/DataML/raw/main/csv/'
+file = path+'vehicle_prod.csv'
+df = pd.read_csv(file)
+tp = df.transpose()
+print(tp)
+
+tp.plot.bar()
+
+df.head(3)
+
+df.tail(3)
+
+#슬라이싱(215p)
+df[2:6]
+
+#로케이션
+df.loc['China']
+
+df.iloc[0]
+
+df.iloc[[2,3]]
+
+df.loc[['China', 'US']]
+
+df.loc[['China','Korea']]
+
+df['2011'].loc[['China',  'Korea']]
+
+df.loc['Korea', '2011']
+
+df.loc['Korea']['2011']
+
+df.iloc[[2,4]]
+
+df.iloc[2,4]
+
+df.iloc[2:4]
+
+#wearther
+import pandas as pd
+import numpy as np
+weather = pd.read_csv("./weather.csv", encoding='cp949')
+weather.head(5)
+
+weather = pd.read_csv("./weather.csv", encoding='cp949', index_col = 0)
+weather.head(5)
+
+weather.tail()
+
+print(weather.describe())
+
+desc_weather = weather.describe()
+
+weather.mean()
+
+weather['평균기온']
+
+weather['평균풍속'].isna()
+
+weather['평균풍속'].count()
+weather.count()
+# weather['평균풍속'].isna().count()
+
+missing_data = weather[weather['평균풍속'].isna()]
+print(missing_data)
+
+weather['평균풍속'].hist()
+
+#230p****************************************************************
+
+##타이타닉
