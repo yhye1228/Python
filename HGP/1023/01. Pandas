@@ -69,6 +69,12 @@ print(missing_data)
 
 weather['평균풍속'].hist()
 
-#230p****************************************************************
+#230p
+missing_count_mean = weather['평균풍속'].isna().sum()
+missing_count_max = weather['최대풍속'].isna().sum()
+missing_count_all = weather.isna().sum().sum()
+print("평균풍속 결측치 갯수:", missing_count_mean)
+print("최대풍속 결측치 갯수:", missing_count_max)
+print("전체 결측치 갯수:", missing_count_all)
 
 ##타이타닉
