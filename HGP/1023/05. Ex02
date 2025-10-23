@@ -1,0 +1,92 @@
+#72p(교재 38p)
+#붓꽃 데이터 (분류=>0, 1, 2)
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+print(iris)
+
+iris.data
+
+iris.target
+
+X = iris.data
+y = iris.target
+
+print(X)
+print(X.shape)
+
+print(y)
+print(y.shape)
+
+from sklearn.model_selection import train_test_split
+(X_train, X_test, y_train, y_test) = train_test_split(X, y, test_size=0.2, random_state=4)
+#andom_state=4 : seed값
+
+print(X_train.shape)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=5)#최근접이웃 : 가장 가까운 K개의 이웃 데이터를 보고 그중 다수가 속한 클래스로 분류
+knn.fit(X_train, y_train)
+
+y_predict = knn.predict(X_test)
+
+print(y_predict)
+
+print(y_test)
+
+from sklearn import metrics
+score = metrics.accuracy_score(y_test, y_predict)
+print(score)
+
+missing_flower1 = [[3.0, 4.0, 5.0, 2.0]]
+print(knn.predict(missing_flower1))
+
+classnames = {0:'setosa', 1:'versicolor', 2:'virginica'}
+print(classnames[knn.predict(missing_flower1)[0]])
+
+missing_flower2 = [[5.0, 4.0, 2.0, 2.0]]
+print(knn.predict(missing_flower2))
+
+print(classnames[knn.predict(missing_flower2)[0]])
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=3)#최근접이웃 : 가장 가까운 K개의 이웃 데이터를 보고 그중 다수가 속한 클래스로 분류
+knn.fit(X_train, y_train)
+
+y_predict = knn.predict(X_test)
+
+print(y_predict)
+
+print(y_test)
+
+from sklearn import metrics
+score = metrics.accuracy_score(y_test, y_predict)
+print(score)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=1)#최근접이웃 : 가장 가까운 K개의 이웃 데이터를 보고 그중 다수가 속한 클래스로 분류
+knn.fit(X_train, y_train)
+
+y_predict = knn.predict(X_test)
+print(y_predict)
+print(y_test)
+from sklearn import metrics
+score = metrics.accuracy_score(y_test, y_predict)
+print(score)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=11)#최근접이웃 : 가장 가까운 K개의 이웃 데이터를 보고 그중 다수가 속한 클래스로 분류
+knn.fit(X_train, y_train)
+y_predict = knn.predict(X_test)
+print(y_predict)
+print(y_test)
+from sklearn import metrics
+score = metrics.accuracy_score(y_test, y_predict)
+print(score)
+
+# Knn : 알고리즘이 매우 단순하고 직관적이며, 사전 학습이나 특별한 준비 시간이 필요 없다는 점은 장점
+
+# 혼동 행렬confusion matrix
+from sklearn.metrics import confusion_matrix
+result = confusion_matrix(y_test, y_predict)
+print(result)#1인데 2로 잘못 예측
