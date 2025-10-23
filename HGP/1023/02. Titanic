@@ -28,10 +28,13 @@ titanic['embarked'].value_counts()
 # Q     77
 titanic['embarked'] = titanic['embarked'].fillna('S')
 print(titanic['embarked'].isna().sum())
+
 titanic['embark_town'] = titanic['embark_town'].fillna('Southampton')
 titanic['embark_town'].isna().sum()
+
 titanic['deck'] = titanic['deck'].fillna(value='C')
 titanic['deck'].isna().sum()
+
 (f, ax) = plt.subplots(nrows = 1, ncols = 2, figsize=(10, 5))
 titanic['survived'][titanic['sex'] == 'male'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', ax=ax[0], shadow=True)
 titanic['survived'][titanic['sex'] == 'female'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', ax=ax[1], shadow=True)
@@ -39,4 +42,242 @@ ax[0].set_title('Survived(Male)')
 ax[1].set_title('Survived(FeMale)')
 plt.show()
 
-#15p********************************************************
+#15p10살 단위로 등급을 나누어 히트맵 작성하기
+def category_age(x): # 10살 단위로 등급을 나누어 0~7의 값으로 바꿔주는 category_age함수를 만듦
+    if x >= 70:
+        return 7
+    elif x >= 60:
+        return 6
+    elif x >= 50:
+        return 5
+    elif x >= 40:
+        return 4
+    elif x >= 30:
+        return 3
+    elif x >= 20:
+        return 2
+    elif x >= 10:
+        return 1
+    else:
+        return 0
+    pass
+
+titanic['age2'] = titanic['age'].apply(func=category_age)
+titanic['sex'] = titanic['sex'].map({'male':1, 'female':0})
+titanic['family'] = titanic['sibsp'] + titanic['parch'] + 1
+titanic.to_csv(path_or_buf='C:\\titanic_heatmap.csv', index=False)
+heatmap_data = titanic[['survived', 'sex', 'age2', 'family', 'pclass', 'fare']]
+colormap = plt.cm.RdBu
+sns.heatmap(data=heatmap_data.astype(float).corr(), linewidths = 0.2, vmax=1.0, square=True, cmap = colormap, linecolor = 'white', annot=True, annot_kws={'size':10})
+plt.show()
+
+import numpy as np
+a=np.array(1)
+print(a)
+print(type(a))
+print(a.shape)
+
+a=np.array([2,3,4])
+print(a)
+print(type(a))
+print(a.shape)
+print(a[0])
+
+b = np.array([1.0, 2, 3, 4, 5])
+print(b)
+#[1. 2. 3. 4. 5.]
+
+store_a = [10, 20, 30]
+store_b = [50, 60, 70]
+list_sum = store_a + store_b
+print(list_sum)
+#[10, 20, 30, 50, 60, 70]
+
+np_store_a = np.array(store_a)
+np_store_b = np.array(store_b)
+array_sum = np_store_a + np_store_b
+print(array_sum)
+#[ 60  80 100]
+array_multi = np_store_a * np_store_b
+print(array_multi)
+#[ 500 1200 2100]
+
+b = np.array([[1,2,3], [4,5,6]])
+b.shape
+#(2, 3)
+
+a = np.array([10, 20, 30]) * 10
+#브로드캐스팅
+# =>np.array([10, 20, 30])*np.array([10, 10, 10])
+print(a)
+#[100 200 300]
+
+#다차원 배열과 브로드캐스팅
+b = np.array([[10, 20, 30], [40, 50, 60]])
+c = np.array([2,3,4])
+b+c
+# array([[12, 23, 34],
+#        [42, 53, 64]])
+
+b*c
+# array([[ 20,  60, 120],
+#        [ 80, 150, 240]])
+
+e = ([[1,0], [0, 1]])
+print(e)
+from numpy import ones, arange
+z = ones((2,2))
+print(z)
+
+s = ([[1,2,3], [4,5,6], [7,8,9]])
+print(s)
+
+white = np.full((1024, 1024), 255)
+print(white)
+
+#단위행렬
+four = np.eye(4)*10
+print(four)
+# [[10.  0.  0.  0.]
+#  [ 0. 10.  0.  0.]
+#  [ 0.  0. 10.  0.]
+#  [ 0.  0.  0. 10.]]
+
+print(np.arange(2,10))
+
+import math
+radian_180 = np.pi
+np.logspace(0, np.pi, 11)
+# array([1.00000000e+00, 2.06138573e+00, 4.24931113e+00, 8.75946932e+00,
+#        1.80566451e+01, 3.72217105e+01, 7.67283028e+01, 1.58166629e+02,
+#        3.26042431e+02, 6.72099215e+02, 1.38545573e+03])
+
+a = np.array([1,3,4])
+np.insert(a,1,2) #두번째 원소에 2를 삽입
+#array([1, 2, 3, 4])
+
+from numpy import insert
+a=([[1,1],[2,2],[3,3]])
+insert(a, 1, 4, axis = 0)
+# array([[1, 1],
+#        [4, 4],
+#        [2, 2],
+#        [3, 3]])
+
+np.insert(a, 1, 4, axis = 1)
+# array([[1, 4, 1],
+#        [2, 4, 2],
+#        [3, 4, 3]])
+
+#axis축 대칭
+np.flip(a, axis = 0)
+
+b = np.array([[1,2,3], [4,5,6]])
+np.flip(b, axis = 1)
+# array([[3, 2, 1],
+#        [6, 5, 4]])
+
+b = np.array([[1,1],[2,2],[3,3]])
+insert(b,1,[5,6,7],axis =1)
+
+a = np.array([[1,2,3],[4,5,6],
+              [7,8,9],[0,1,2]])
+print(a)
+# [[1 2 3]
+#  [4 5 6]
+#  [7 8 9]
+#  [0 1 2]]
+print(a[0][0])
+print(a[0,0])
+# 1
+# 1
+
+#넘파이 슬라이싱(쉼표와 콜론 주의!!!)
+a[1:, 0:2]
+
+a[::2]#2의 배수 컬럼만 가져오기
+
+a = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+a % 2 == 0
+# array([[False,  True, False,  True],
+#        [False,  True, False,  True],
+#        [False,  True, False,  True],
+#        [False,  True, False,  True]])
+
+a[ a % 2 == 0]
+# true만 가져오기
+# array([ 2,  4,  6,  8, 10, 12, 14, 16])
+
+a = np.array([10, 20, 30])
+a.max(), a.min()
+# (np.int64(30), np.int64(10))
+
+a.mean()
+# np.float64(20.0)
+
+a.astype(np.float64)
+# array([10., 20., 30.])
+
+#다차원 배열의 평탄화
+b = np.array([[1,1], [2,2], [3,3]])
+b.flatten()
+# array([1, 1, 2, 2, 3, 3])
+
+#전치 : 행과 열 변경
+b.T
+# array([[1, 2, 3],
+#        [1, 2, 3]])
+
+c = np.array([35, 24, 55, 69, 19, 99])
+c.sort()#오름차순
+c[::1]
+# array([19, 24, 35, 55, 69, 99])
+c[::-1]#내림차순
+# array([99, 69, 55, 35, 24, 19])
+
+d = np.array([[35, 24, 55], [69, 19, 9], [4, 1, 11]])
+d.sort(axis=0) #axis=0방향 정렬
+print(d)
+
+#63p
+d.sort(axis=1)
+e= np.flip(d, axis=0)
+np.flip(e, axis=1)
+
+#reshape <-> flatten
+
+#난수 : 150이상 190미만 10개
+np.random.randint(150, 191, size = 10)
+# array([165, 167, 152, 155, 151, 189, 176, 178, 173, 182], dtype=int32)
+np.random.randint(1,46, 6)
+
+#평균이 165, 표준편차가 10인 값 5개 생성
+rnd = np.random.randn(5)*10+165
+rnd
+# array([158.75183863, 167.90886872, 181.45091259, 138.45182241,
+#        147.09670403])
+nums = np.random.normal(loc=165, scale=10, size=(3,4)).round(2)
+
+a = np.arange(1, 50)
+np.random.shuffle(a)
+print(a)
+b = train_data = a[:39]
+print(b)
+c = test_data = a[39:]
+print(c)
+
+#선형방정식
+a = np.array([[1,2], [1,-3]])
+b = np.array([6,1])
+s = np.linalg.solve(a,b)
+print(s)
+
+
+a = np.array([[1,1,-1], [2,-1,3],[1,2,1]], dtype = 'int32')
+b = np.array([0, 9, 8])
+s = np.linalg.solve(a, b)
+print(s)
+det = np.linalg.det(a)
+print(det)
+
+#배열결합(109p~)
