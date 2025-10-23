@@ -1,0 +1,42 @@
+import seaborn as sns
+#shift+enter
+
+import pandas as pd
+
+titanic = sns.load_dataset("titanic")
+
+print(titanic.head())
+
+print(titanic.info())
+
+#엑셀자료 형태로 저장하기
+titanic.to_csv(path_or_buf='titanic.csv', index=False)
+
+print(titanic.isnull().sum()) #missing value 확인하기
+print(titanic.isna().sum())
+# print(titanic.tail())
+
+#결측값(missing value) 치환하기
+titanic['age'] = titanic['age'].fillna(titanic['age'].median())
+print(titanic['age'].isna().sum())
+
+from matplotlib import pyplot as plt
+
+titanic['embarked'].value_counts()
+# S    644
+# C    168
+# Q     77
+titanic['embarked'] = titanic['embarked'].fillna('S')
+print(titanic['embarked'].isna().sum())
+titanic['embark_town'] = titanic['embark_town'].fillna('Southampton')
+titanic['embark_town'].isna().sum()
+titanic['deck'] = titanic['deck'].fillna(value='C')
+titanic['deck'].isna().sum()
+(f, ax) = plt.subplots(nrows = 1, ncols = 2, figsize=(10, 5))
+titanic['survived'][titanic['sex'] == 'male'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', ax=ax[0], shadow=True)
+titanic['survived'][titanic['sex'] == 'female'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', ax=ax[1], shadow=True)
+ax[0].set_title('Survived(Male)')
+ax[1].set_title('Survived(FeMale)')
+plt.show()
+
+#15p********************************************************
