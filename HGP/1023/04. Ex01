@@ -1,0 +1,25 @@
+#introduction python=>교재 찾기(머신러닝)
+#install : scikit-learn
+from sklearn.linear_model import LinearRegression#선형회귀
+
+model = LinearRegression()
+X = [[174], [152], [138], [128], [186]]
+Y = [71, 55, 46, 38, 88]
+model.fit(X, Y)
+w = model.coef_#계수(w)
+
+# w : weight
+# Y = w*X + b
+
+
+b = model.intercept_#b
+
+model.predict([[165]])
+
+#분류41p
+#48p
+#feature
+# y = w1 * x1 + w2 * x2 + b
+
+#50p
+# 데이터 = 학습데이터(80%) + 테스트데이터(20%)
