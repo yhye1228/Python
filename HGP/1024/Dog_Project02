@@ -1,0 +1,63 @@
+#정규분포로 200마리씩 400마리 만들어서 360마리는 트레이닝하고 40마리는 테스트용으로 사용하기
+#데이터 증강하기
+dachhund_length_mean = np.mean(dachhund_length)
+dachhund_height_mean = np.mean(dachhund_height)
+print(dachhund_length_mean, dachhund_height_mean)
+
+samoyed_length_mean = np.mean(samoyed_length)
+samoyed_height_mean = np.mean(samoyed_height)
+print(samoyed_length_mean, samoyed_height_mean)
+
+#통계적 기반으로 데이터 만들기(표준편차가 10인 정규분포)
+new_normal_dachhund_length_data = np.random.normal(dachhund_length_mean, 7, 200)#표준편차=10
+new_normal_dachhund_height_data = np.random.normal(dachhund_height_mean, 7, 200)
+
+new_normal_samoyed_length_data = np.random.normal(samoyed_length_mean, 7, 200)#표준편차=10
+new_normal_samoyed_height_data = np.random.normal(samoyed_height_mean, 7, 200)
+
+print(new_normal_dachhund_length_data)
+print(new_normal_dachhund_height_data)
+print(new_normal_samoyed_length_data)
+print(new_normal_samoyed_height_data)
+
+
+#새롭게 데이터 증강된 그래프 그리기
+plt.scatter(new_normal_dachhund_length_data, new_normal_dachhund_height_data, c='b', marker='.', label='dachhund')
+plt.scatter(new_normal_samoyed_length_data, new_normal_samoyed_height_data, c='m', marker='*', label='samoyed')
+
+new_dachhund_data = np.column_stack((new_normal_dachhund_length_data, new_normal_dachhund_height_data))
+new_samoyed_data = np.column_stack((new_normal_samoyed_length_data, new_normal_samoyed_height_data))
+print(new_dachhund_data)
+
+
+print(new_samoyed_data)
+
+new_dachhund_label = np.zeros(len(new_dachhund_data))
+new_samoyed_label = np.ones(len(new_samoyed_data))
+print(new_dachhund_label)
+print(new_samoyed_label)
+
+new_dogs = np.concatenate((new_dachhund_data, new_samoyed_data))
+new_labels = np.concatenate((new_dachhund_label, new_samoyed_label))
+print(new_dogs)
+
+print(new_labels)
+
+#데이터 섞고 테스트 데이터 뽑기(80%)
+from sklearn.model_selection import train_test_split
+(X_train, X_test, y_train, y_test) = train_test_split(new_dogs, new_labels, test_size=0.2, random_state=0)
+
+print(X_train.shape)
+
+k=5
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X_train, y_train)
+print(f"훈련한 정확도 : {knn.score(X_train, y_train)}")
+
+y_predict = knn.predict(X_test)
+print(y_predict)
+
+print(y_test)
+
+from sklearn.metrics import accuracy_score
+print(f'테스트 정확도 : {accuracy_score(y_test, y_predict)}')
