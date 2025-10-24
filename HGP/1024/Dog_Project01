@@ -1,0 +1,45 @@
+#포트폴리오(닥스훈트, 사모예드 분류)
+import matplotlib.pyplot as plt
+import numpy as np
+#%%
+dachhund_length = [77, 78, 85, 83, 73, 77, 73, 80]
+dachhund_height = [25, 28, 29, 30, 21, 22, 17, 35]
+
+samoyed_length = [75, 77, 86, 86, 79, 83, 83, 88]
+samoyed_height = [56, 57, 50, 53, 60, 53, 49, 61]
+#%%
+plt.scatter(dachhund_length, dachhund_height, c='c', marker='.', label='dachhund')
+plt.scatter(samoyed_length, samoyed_height, c='b',marker='*', label='samoyed')
+unknown_dog_length = [79]
+unknown_dog_height = [35]
+plt.scatter(unknown_dog_length, unknown_dog_height, c='r', marker='p', label='unknown')
+plt.xlabel('Length')
+plt.ylabel('Height')
+plt.title("Dog Size")
+plt.legend(loc='center left')
+plt.show()
+#%%
+#닥스훈트의 레이블 : 0
+dachhund_label = np.zeros(len(dachhund_length))
+#사모예드의 레이블 : 1
+samoyed_label = np.ones(len(samoyed_length))
+print(dachhund_label)
+print(samoyed_label)
+#%%
+dachhund_data = np.column_stack((dachhund_length, dachhund_height))
+print(dachhund_data)
+#%%
+samoyed_data = np.column_stack((samoyed_length, samoyed_height))
+print(samoyed_data)
+#%%
+dogs = np.concatenate((dachhund_data, samoyed_data), axis=0)
+labels = np.concatenate((dachhund_label, samoyed_label), axis=0)
+print(dogs)
+#%%
+print(labels)
+#%%
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(dogs, labels)
+new_dog = [[79, 35]]
+print(knn.predict(new_dog))
