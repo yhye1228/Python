@@ -108,3 +108,30 @@ print(test_loss)
 
 #학습결과 저장
 model.save("MNIST_PARAM.keras")
+
+#이미지 테스트 하기
+import cv2 as cv
+image = cv.imread("test.png", cv.IMREAD_GRAYSCALE)
+
+cv.imshow("Window", image)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+image = cv.resize(image, (28, 28))
+
+cv.imshow("Window", image)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+image = image.astype('float32')
+
+image = image.reshape(1, 28*28) #평탄화
+
+image = 255.0 - image #이미지 반전
+
+image /= 255.0 #0.0~1.0 이미지 전처리
+
+predict = model.predict(image, batch_size = 1)
+print(predict)
+
+print(f'가장 큰 값은 : {predict.argmax()}')
