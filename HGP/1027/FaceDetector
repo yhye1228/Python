@@ -1,0 +1,143 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import keras
+import tensorflow as tf
+
+#이미지 테스트
+
+image1 = cv2.imread("faces/img01.jpg")
+cv2.imshow("FACE", image1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+face_images = [] # 빈리스트(이미지 넣어줄 예정)
+face_images.clear()
+for i in range(15):
+    file = "./faces/img{0:02d}.jpg".format(i + 1)
+    image = cv2.imread(file)
+    image = cv2.resize(image, (64, 64)) # 64 X 64 RGB -> BGR순서
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #BGR => RGB로 변경하기
+    face_images.append(image)
+
+print(face_images[1])
+
+#이미지 보는 함수
+def show_image(row, col, images):
+    (_, ax) = plt.subplots(row, col, figsize = (row, col))
+    for i in range(row):
+        for j in range(col):
+            if row <= 1:
+                axis = ax[j]
+            else:
+                axis = ax[i, j]
+                axis.get_xaxis().set_visible(False)
+                axis.get_yaxis().set_visible(False)
+                axis.imshow(images[i * col + j])
+    plt.show()
+
+show_image(3, 5, face_images)
+
+#동물 이미지
+animal_images = []
+animal_images.clear()
+for i in range(15):
+    file = "./animals/img{0:02d}.jpg".format(i + 1)
+    image = cv2.imread(file)
+    image = cv2.resize(image, (64, 64)) # 64 X 64 RGB -> BGR순서
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #BGR => RGB로 변경하기
+    animal_images.append(image)
+
+#이미지 보는 함수
+def show_image(row, col, animal_images):
+    (_, ax) = plt.subplots(row, col, figsize = (row, col))
+    for i in range(row):
+        for j in range(col):
+            if row <= 1:
+                axis = ax[j]
+            else:
+                axis = ax[i, j]
+                axis.get_xaxis().set_visible(False)
+                axis.get_yaxis().set_visible(False)
+                axis.imshow(animal_images[i * col + j])
+    plt.show()
+
+show_image(3,5, animal_images)
+
+#학습시키기
+#1. 레이블 만들기(정답표)
+y = [(1, 0)] * len(face_images) + [(0, 1)] * len(animal_images)
+
+print(y)#=> 원-핫 인코딩
+
+y = np.array(y) # 넘파이 배열로 변환
+print(y)
+
+#입력데이터(train data)
+X = face_images + animal_images
+print(X)
+print(len(X))
+
+X_train = np.array(X) # 넘파이 배열로 변환
+X_train = X_train / 255.0   # 정규화
+X_train - X_train
+
+print(X_train.shape)
+
+#학습할 모델 만들기
+model = keras.Sequential(name = "FACE_DETECTOR")
+model.add(keras.layers.Input(shape=(64, 64, 3)))
+#Convolution : Correlation
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D(pool_size = (2, 2), strides = 2))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D(pool_size = (2, 2), strides = 2))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D(pool_size = (2, 2), strides = 2))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D(pool_size = (2, 2), strides = 2))
+#DNN
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(64, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
+model.add(keras.layers.Dense(32, activation = 'relu'))
+model.add(keras.layers.Dense(2, activation = 'softmax'))
+
+model.summary()
+
+model.compile(optimizer = "adam", loss = "categorical_crossentropy", metrics = ["categorical_accuracy"])
+
+history = model.fit(X_train, y, epochs= 200)
+model.save("FACE_DETECTOR.keras")
+
+test_images=[]
+test_images.clear()
+for i in range(10):
+    file = "./test_images/img{0:02d}.jpg".format(i + 1)
+    image = cv2.imread(file)
+    image = cv2.resize(image, (64, 64)) # 64 X 64 RGB -> BGR순서
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #BGR => RGB로 변경하기
+    test_images.append(image)
+
+def show_image(row, col, images):
+    (_, ax) = plt.subplots(row, col, figsize = (row, col))
+    for i in range(row):
+        for j in range(col):
+            if row <= 1:
+                axis = ax[j]
+            else:
+                axis = ax[i, j]
+                axis.get_xaxis().set_visible(False)
+                axis.get_yaxis().set_visible(False)
+                axis.imshow(images[i * col + j])
+    plt.show()
+
+show_image(2,5, test_images)
+test_images = np.array(test_images) / 255.0
+test_images - test_images.astype('float32')
+#모델 불러오기
+cnn_model = keras.models.load_model("FACE_DETECTOR.keras")
+#예측
+predictions = cnn_model.predict(test_images)
+#결과 출력
+print(predictions.round(3))
