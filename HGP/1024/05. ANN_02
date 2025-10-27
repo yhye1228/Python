@@ -1,3 +1,4 @@
+#글자읽기
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import shape
@@ -42,21 +43,21 @@ import numpy as np
 # 데이터 (XOR 문제)
 X = np.array([[0,0],[0,1],[1,0],[1,1]])
 y = np.array([[0],[1],[1],[0]])
-#(1)sequential(엄청오래 걸림) 
+#(1)sequential
 #(2)함수형 API
 #Model클래스를 상속받아서...
 model = tf.keras.models.Sequential()
 
 model.add(Input(shape=(2,)))#**중요
 model.add(tf.keras.layers.Dense(units=2, activation='sigmoid'))
-model.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))#**출력이 하나
+model.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))#(254p : 출력노드가 하나)
 
 model.compile(loss='mean_squared_error', optimizer=keras.optimizers.SGD(learning_rate=0.3))#SGD : 확률적 경사 하강법
 #optimizer : 신경망의 가중치를 어떻게 업데이트할지 결정하는 알고리즘
 
-model.fit(X, y, batch_size=1, epochs=10000)
+# model.fit(X, y, batch_size=1, epochs=10000)--너무 오래 걸림
 
-print(model.predict(X))
+# print(model.predict(X))
 
 #206p
 # MNIST 필기체 숫자 인식 (MLP)
@@ -67,15 +68,15 @@ print(train_images.shape)
 
 print(train_labels.shape)
 
-train_images[0]
-plt.imshow(train_images[0], cmap="Greys")
+train_images[1]
+plt.imshow(train_images[1], cmap="Greys")
 
 model = tf.keras.models.Sequential([], name="MNIST")
 
 model.add(tf.keras.layers.Input(shape=(28*28,)))
 model.add(tf.keras.layers.Dense(units=512, activation=tf.nn.relu))
 model.add(tf.keras.layers.Dense(units=256, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(units=10, activation=tf.nn.softmax))
+model.add(tf.keras.layers.Dense(units=10, activation=tf.nn.softmax))#=>249p(확률, 출력노드 2개 이상)
 
 #데이터 전처리
 train_images = train_images.reshape(60000, 28*28)
@@ -84,7 +85,7 @@ train_images = train_images/255.0
 test_images = test_images.reshape(10000, 28*28)
 test_images = test_images/255.0#입력값을 작게 만들기
 
-print(test_labels[1])
+print(test_images[1])
 
 test_labels = tf.keras.utils.to_categorical(test_labels)
 
@@ -104,6 +105,7 @@ model.fit(x=train_images, y=train_labels, epochs=10, batch_size=128)
 
 print(test_accuracy)
 
+
 print(test_loss)
 
 #학습결과 저장
@@ -111,7 +113,7 @@ model.save("MNIST_PARAM.keras")
 
 #이미지 테스트 하기
 import cv2 as cv
-image = cv.imread("test.png", cv.IMREAD_GRAYSCALE)
+image = cv.imread("test01.png", cv.IMREAD_GRAYSCALE)
 
 cv.imshow("Window", image)
 cv.waitKey(0)
@@ -125,7 +127,7 @@ cv.destroyAllWindows()
 
 image = image.astype('float32')
 
-image = image.reshape(1, 28*28) #평탄화
+image = image.reshape(1, 28*28) #평탄화*************************************
 
 image = 255.0 - image #이미지 반전
 
@@ -135,3 +137,6 @@ predict = model.predict(image, batch_size = 1)
 print(predict)
 
 print(f'가장 큰 값은 : {predict.argmax()}')
+#=>오류 원인 찾기
+
+#픽셀단위
