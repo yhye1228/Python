@@ -1,0 +1,65 @@
+#329p
+import tensorflow as tf
+from tensorflow.keras import datasets, layers, models
+
+(train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
+train_images = train_images.reshape((60000, 28, 28, 1))
+test_images = test_images.reshape((10000, 28, 28, 1))
+# 픽셀 값을 0.0 ~ 1.0 사이로 정규화한다.
+train_images, test_images = train_images / 255.0, test_images / 255.0
+
+#330p
+model = models.Sequential(layers=[], name="CNN_MODEL")
+model.add(layers.Input((28,28,1)))
+model.add(layers.Conv2D(32, (3, 3), activation='relu'))#3 or 5 or 7
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+#컨벌루션(Convolution) 네트워크(298p)
+
+#딥러닝 시작~
+model.add(layers.Flatten())
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(10, activation='softmax'))
+
+model.summary()
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+
+print(test_labels[0])
+
+model.fit(train_images, train_labels, epochs=5)
+
+#정확도
+print(model.evaluate(test_images, test_labels))
+
+model.save("CNN_MODEL.keras")
+
+#이미지 테스트하기***********************************************************************
+
+import cv2 as cv
+image = cv.imread("test01.png", cv.IMREAD_GRAYSCALE)
+
+cv.imshow("Window", image)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+image = cv.resize(image, (28, 28))
+
+cv.imshow("Window", image)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+image = image.astype('float32')
+
+image = image.reshape(-1, 28, 28, 1)#평탄화***********************************ANN과 다름
+
+image = 255.0 - image#반전
+
+image /= 255.0#전처리
+
+predict = model.predict(image, batch_size = 1)
+print(predict)
+
+print(f'가장 큰 값은 : {predict.argmax()}')
