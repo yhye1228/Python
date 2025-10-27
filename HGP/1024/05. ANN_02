@@ -139,4 +139,4 @@ print(predict)
 print(f'가장 큰 값은 : {predict.argmax()}')
 #=>오류 원인 찾기
 
-#픽셀단위
+#픽셀단위학습(숫자를 정중앙에 써야함)
