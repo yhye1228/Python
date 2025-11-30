@@ -1,0 +1,71 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from keras_facenet import FaceNet
+
+# ─────────────────────────────────────────────────────────────────────────
+# 1️⃣ 임베더 생성
+embedder = FaceNet()
+
+# ─────────────────────────────────────────────────────────────────────────
+# 2️⃣ 내 얼굴 이미지 로드 & 임베딩
+my_images = []
+labels = []  # 내 얼굴 = 1, 타인 = 0
+for i in range(10):
+    file = f"./my_images/img{i+1:02d}.jpg"
+    img = cv2.imread(file)
+    if img is None:
+        print(f"⚠️ {file} 로드 실패")
+        continue
+    img = cv2.resize(img, (160, 160))  # 🔥 FaceNet 입력 크기: (160, 160, 3)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    my_images.append(img)
+    labels.append(1)
+
+X_my = np.array(my_images, dtype='float32')
+embeddings_my = embedder.embeddings(X_my)
+mean_embedding_my = np.mean(embeddings_my, axis=0, keepdims=True)
+
+print("✅ 내 얼굴 임베딩 계산 완료")
+
+# ─────────────────────────────────────────────────────────────────────────
+# 3️⃣ 테스트 이미지 로드 & 비교
+test_images = []
+for i in range(10):
+    file = f"./test_images/img{i+1:02d}.jpg"
+    img = cv2.imread(file)
+    if img is None:
+        print(f"⚠️ {file} 로드 실패")
+        continue
+    img = cv2.resize(img, (160, 160))   # ✅ 모든 이미지를 (160,160)으로 맞추기
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    test_images.append(img)
+
+X_test = np.array(test_images, dtype='float32')
+embeddings_test = embedder.embeddings(X_test)
+
+# ─────────────────────────────────────────────────────────────────────────
+# 4️⃣ 유사도(코사인) 계산 & 판별
+from sklearn.metrics.pairwise import cosine_similarity
+
+for i, emb in enumerate(embeddings_test):
+    sim = cosine_similarity(mean_embedding_my, emb.reshape(1, -1))[0][0]
+    if sim > 0.7:
+        print(f"img{i+1:02d}.jpg → ✅ 내 얼굴 (유사도 {sim:.3f})")
+    else:
+        print(f"img{i+1:02d}.jpg → ❌ 타인 (유사도 {sim:.3f})")
+
+# ─────────────────────────────────────────────────────────────────────────
+# 5️⃣ 시각화 (선택)
+def show_images(images, title=""):
+    plt.figure(figsize=(8,4))
+    cols = 5
+    for idx, im in enumerate(images):
+        plt.subplot((len(images)+cols-1)//cols, cols, idx+1)
+        plt.imshow(im)
+        plt.axis('off')
+    plt.suptitle(title)
+    plt.show()
+
+show_images(my_images, "my_images")
+show_images(test_images, "test_images")
