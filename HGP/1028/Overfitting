@@ -1,0 +1,157 @@
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+import keras
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.applications import MobileNetV2
+from sklearn.model_selection import train_test_split
+
+#%%
+my_images = []
+labels = [0]*5 + [1]*5
+
+for i in range(10):
+    file = f"./my_images/img{i+1:02d}.jpg"
+    image = cv.imread(file)
+    image = cv.resize(image, (96, 96))
+    image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    my_images.append(image)
+
+X = np.array(my_images, dtype='float32') / 255.0
+y = np.array(labels)
+
+#%%
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+#%%
+datagen = ImageDataGenerator(
+    rotation_range=30,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    zoom_range=0.3,
+    horizontal_flip=True,
+    brightness_range=[0.7,1.3],
+    fill_mode='nearest'
+)
+datagen.fit(X_train)
+
+#%%
+base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(96,96,3))
+base_model.trainable = False  # 사전 학습된 특징 고정
+
+# model = keras.Sequential([
+#     base_model,
+#     keras.layers.GlobalAveragePooling2D(),
+#     keras.layers.Dense(64, activation='relu'),
+#     keras.layers.Dropout(0.5),  # Dropout 추가
+#     keras.layers.Dense(32, activation='relu'),
+#     keras.layers.Dropout(0.3),  # 추가 Dropout
+#     keras.layers.Dense(1, activation='sigmoid')
+# ])
+model = keras.Sequential([
+    base_model,
+    keras.layers.GlobalAveragePooling2D(),
+    keras.layers.Dense(16, activation='relu'),  # 노드 수 축소
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+#%%
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=1e-4),
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+#%%
+early_stop = EarlyStopping(
+    monitor='val_loss',
+    patience=15,
+    restore_best_weights=True
+)
+
+#%%
+history = model.fit(
+    datagen.flow(X_train, y_train, batch_size=2),
+    validation_data=(X_val, y_val),
+    epochs=200,
+    callbacks=[early_stop]
+)
+
+#%%
+model.save("MY_DETECTOR_OPTIMIZED.keras")
+
+#%%
+test_images = []
+for i in range(10):
+    file = f"./test_images/img{i+1:02d}.jpg"
+    image = cv.imread(file)
+    image = cv.resize(image, (96, 96))
+    image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    test_images.append(image)
+
+
+def show_image(row, col, images):
+    (_, ax) = plt.subplots(row, col, figsize=(row, col))
+    for i in range(row):
+        for j in range(col):
+            if row <= 1:
+                axis = ax[j]
+            else:
+                axis = ax[i, j]
+                axis.get_xaxis().set_visible(False)
+                axis.get_yaxis().set_visible(False)
+                axis.imshow(images[i * col + j])
+    plt.show()
+
+
+show_image(2, 5, test_images)
+test2_images = np.array(test_images, dtype='float32') / 255.0
+
+#%%
+cnn_model = keras.models.load_model("MY_DETECTOR_OPTIMIZED.keras")
+
+#%%
+predictions = cnn_model.predict(test2_images)
+
+#%%
+for i, p in enumerate(predictions):
+    if p > 0.5:
+        print(f"img{i+1:02d}.jpg → ✅ 내 얼굴 ({p[0]:.3f})")
+    else:
+        print(f"img{i+1:02d}.jpg → ❌ 타인 ({p[0]:.3f})")
+#%%
+#과적합 여부 확인
+import matplotlib.pyplot as plt
+
+
+def plot_training_history(history):
+    # 손실(loss) 그래프
+    plt.figure(figsize=(12, 5))
+
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['loss'], label='Train Loss')
+    plt.plot(history.history['val_loss'], label='Val Loss')
+    plt.title('Loss During Training')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend()
+
+    # 정확도(accuracy) 그래프
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['accuracy'], label='Train Accuracy')
+    plt.plot(history.history['val_accuracy'], label='Val Accuracy')
+    plt.title('Accuracy During Training')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.legend()
+
+    plt.show()
+
+
+# 학습 history를 이용해서 그래프 그리기
+plot_training_history(history)
