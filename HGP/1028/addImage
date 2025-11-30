@@ -1,0 +1,86 @@
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+import keras
+import tensorflow as tf
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+#%%
+my_images = []
+labels = []
+
+for i in range(10):  # 01~10.jpg
+    file = "./my_images/img{0:02d}.jpg".format(i + 1)
+    image = cv.imread(file)
+    image = cv.resize(image, (64, 64))
+    image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    my_images.append(image)
+#%%
+!pip install scipy
+#%%
+# 라벨 생성 (예시)
+# img01~05 = 내 얼굴(0), img06~10 = 다른 사람(1)
+labels = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#%%
+# numpy 변환 및 정규화
+X_train = np.array(my_images).astype("float32") / 255.0
+y = np.array(labels)
+y = to_categorical(y, num_classes=2)
+
+print("X_train shape:", X_train.shape)
+print("y shape:", y.shape)
+#%%
+model = keras.Sequential(name="FACE_DETECTOR")
+model.add(keras.layers.Input(shape=(64, 64, 3)))
+model.add(keras.layers.Conv2D(128, (3, 3), activation="relu"))
+model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+model.add(keras.layers.Conv2D(64, (3, 3), activation="relu"))
+model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"))
+model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"))
+model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(64, activation="relu"))
+model.add(keras.layers.Dense(64, activation="relu"))
+model.add(keras.layers.Dense(32, activation="relu"))
+model.add(keras.layers.Dense(2, activation="softmax"))
+#%%
+model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
+model.summary()
+#%%
+datagen = ImageDataGenerator(
+    rotation_range=15,  # 0~15도 회전
+    width_shift_range=0.1,  # 가로 이동
+    height_shift_range=0.1,  # 세로 이동
+    shear_range=0.1,  # 기울이기
+    zoom_range=0.2,  # 확대/축소
+    horizontal_flip=True,  # 좌우 반전
+    fill_mode='nearest'  # 빈 부분 채우기
+)
+#%%
+datagen.fit(X_train)
+#%%
+history = model.fit(
+    datagen.flow(X_train, y, batch_size=4),
+    epochs=200
+)
+#%%
+model.save("MY_DETECTOR.keras")
+#%%
+test_images = []
+for i in range(10):
+    file = "./test_images/img{0:02d}.jpg".format(i + 1)
+    image = cv.imread(file)
+    image = cv.resize(image, (64, 64))
+    image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    test_images.append(image)
+#%%
+test2_images = np.array(test_images).astype("float32") / 255.0
+#%%
+cnn_model = keras.models.load_model("MY_DETECTOR.keras")
+predictions = cnn_model.predict(test2_images)
+#%%
+print("예측 확률:")
+print(predictions.round(3))
+print("예측 클래스:", np.argmax(predictions, axis=1))
